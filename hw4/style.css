@@ -29,6 +29,10 @@ img {
   vertical-align: top;
 }
 
+.photo img {
+  width: 100%;
+}
+
 input {
   position: absolute;
   top: -500px;
@@ -87,7 +91,6 @@ section:nth-child(4) > .row {
   font-size: 14px;
   font-weight: 300;
   margin: 0 0 1em;
-  width: 405px;
   line-height: 1.5;
   padding: 20px 0;
 }
@@ -95,7 +98,7 @@ section:nth-child(4) > .row {
 .btn a {
   display: inline-block;
   border-radius: 10px;
-  padding: 12px 20px;
+  padding: 12px 30px;
   font-size: 14px;
   line-height: 1.2;
   background-color: #1fde82;
@@ -171,6 +174,13 @@ section:nth-child(4) > .row {
     width: 400px;
     height: calc(100% - 40px);
     background-color: #fff;
+  }
+  .title h2 {
+    font-size: 30px;
+  }
+  section:nth-child(4) > .row {
+    -ms-flex-wrap: wrap-reverse;
+        flex-wrap: wrap-reverse;
   }
 }
 
