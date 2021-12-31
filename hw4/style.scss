@@ -290,6 +290,69 @@ p,input, textarea{
 .send-btn{
     margin: 10px;
 }
+
+.word-card .photo{
+    width: 100%;
+    img{
+        width: 100%;
+    }
+}
+.worksteps-content{
+    margin: 20px 0;
+}
+.info-cards{
+    margin: 10px 0;
+}
+.info-card{
+    img{
+        margin: 20px 0;
+    }
+}
+.info-card-content{
+    margin: 20px 0;
+}
+.info-card-txt p{
+    margin: 0;
+    padding: 0;
+    color: $maincolor;
+    font-weight: bold;
+    span{
+        color: $subcolor;
+        font-weight: normal;
+    }
+}
+.info-card-title h5{
+    font-size: 30px;
+    font-weight: 600;
+    white-space: nowrap;
+    margin: 20px 0;
+}
+.info-card-content a{
+    display: block;
+    color: $subcolor;
+    margin: 10px 0px;
+    &:hover{
+        color: $maincolor;
+    }
+}
+.info-card-content p{
+    margin: 0;
+    padding: 0;
+    line-height: 1.2;
+    color: $subcolor;
+}
+.item {
+    font-size: 12px;
+    color: $subcolor;
+    text-align: center;
+    p{
+        margin: 0;
+        padding: 0;
+        span{
+            padding-left: 30px;
+        }
+    }
+}
 @media screen and(max-width:767px) {
     .hb {
         display: block;
@@ -347,9 +410,57 @@ p,input, textarea{
     .nav a {
         border-bottom: 1px solid $subcolor;
     }
+    .photo-1, .photo-2, .photo-3, .photo-4, .photo-5{
+        order: 6;
+    }
     .projects-btn{
         text-align: left;
     }
+    .word-card{
+        .photo{
+            min-width: 50%;
+        }
+    }
+    .photo-1 .word-card{
+        img{
+            width: 40%;
+        }
+    }
+    .photo-2 .word-card{
+        img{
+            width: 50%;
+        }
+    }
+    .photo-3 .word-card{
+        img{
+            width: 65%;
+        }
+    }
+    .photo-4 .word-card{
+        img{
+            width: 60%;
+        }
+    }
+    .photo-5 .word-card{
+        img{
+            width: 50%;
+        }
+    }
+    .workstep-txt p{
+        font-size: 20px;
+        padding: 20px 0;
+        margin: 0;
+        font-weight: 600;
+    }
+    .workstep-txt span{
+        display: inline-block;
+        font-size: 12px;
+        padding: 10px 0;
+        margin-bottom: 20px;
+        color: $subcolor;
+        letter-spacing: 1px;
+    }
+    
 }
 @media screen and(min-width:768px) {
     nav {
@@ -372,6 +483,7 @@ p,input, textarea{
         width: 100%;
         img {
             width: 80%;
+            min-width: 50%;
         }
     }
     .sit-photo {
@@ -440,6 +552,7 @@ p,input, textarea{
             font-size: 52px;
         }
     }
+    
     .subscribe-area{
         width: 600px;
         margin: auto;
@@ -447,6 +560,24 @@ p,input, textarea{
     .subscribe-area-txt{
         p{
             font-size: 52px;
+        }
+    }
+    .workstep-txt p{
+        font-size: 22px;
+        padding: 10px 0;
+        margin: 10px 0;
+    }
+    .workstep-txt span{
+        display: inline-block;
+        font-size: 14px;
+        padding: 10px 0;
+        color: $subcolor;
+        line-height: 1.2;
+    }
+    .photo-5 .word-card{
+        text-align: end;
+        img{
+            width: 50%;
         }
     }
 }

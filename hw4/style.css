@@ -352,6 +352,81 @@ p, input, textarea {
   margin: 10px;
 }
 
+.word-card .photo {
+  width: 100%;
+}
+
+.word-card .photo img {
+  width: 100%;
+}
+
+.worksteps-content {
+  margin: 20px 0;
+}
+
+.info-cards {
+  margin: 10px 0;
+}
+
+.info-card img {
+  margin: 20px 0;
+}
+
+.info-card-content {
+  margin: 20px 0;
+}
+
+.info-card-txt p {
+  margin: 0;
+  padding: 0;
+  color: #1fde82;
+  font-weight: bold;
+}
+
+.info-card-txt p span {
+  color: #afb6c5;
+  font-weight: normal;
+}
+
+.info-card-title h5 {
+  font-size: 30px;
+  font-weight: 600;
+  white-space: nowrap;
+  margin: 20px 0;
+}
+
+.info-card-content a {
+  display: block;
+  color: #afb6c5;
+  margin: 10px 0px;
+}
+
+.info-card-content a:hover {
+  color: #1fde82;
+}
+
+.info-card-content p {
+  margin: 0;
+  padding: 0;
+  line-height: 1.2;
+  color: #afb6c5;
+}
+
+.item {
+  font-size: 12px;
+  color: #afb6c5;
+  text-align: center;
+}
+
+.item p {
+  margin: 0;
+  padding: 0;
+}
+
+.item p span {
+  padding-left: 30px;
+}
+
 @media screen and (max-width: 767px) {
   .hb {
     display: block;
@@ -410,8 +485,45 @@ p, input, textarea {
   .nav a {
     border-bottom: 1px solid #afb6c5;
   }
+  .photo-1, .photo-2, .photo-3, .photo-4, .photo-5 {
+    -webkit-box-ordinal-group: 7;
+        -ms-flex-order: 6;
+            order: 6;
+  }
   .projects-btn {
     text-align: left;
+  }
+  .word-card .photo {
+    min-width: 50%;
+  }
+  .photo-1 .word-card img {
+    width: 40%;
+  }
+  .photo-2 .word-card img {
+    width: 50%;
+  }
+  .photo-3 .word-card img {
+    width: 65%;
+  }
+  .photo-4 .word-card img {
+    width: 60%;
+  }
+  .photo-5 .word-card img {
+    width: 50%;
+  }
+  .workstep-txt p {
+    font-size: 20px;
+    padding: 20px 0;
+    margin: 0;
+    font-weight: 600;
+  }
+  .workstep-txt span {
+    display: inline-block;
+    font-size: 12px;
+    padding: 10px 0;
+    margin-bottom: 20px;
+    color: #afb6c5;
+    letter-spacing: 1px;
   }
 }
 
@@ -449,6 +561,7 @@ p, input, textarea {
   }
   .photo img {
     width: 80%;
+    min-width: 50%;
   }
   .sit-photo {
     text-align: center;
@@ -515,6 +628,24 @@ p, input, textarea {
   }
   .subscribe-area-txt p {
     font-size: 52px;
+  }
+  .workstep-txt p {
+    font-size: 22px;
+    padding: 10px 0;
+    margin: 10px 0;
+  }
+  .workstep-txt span {
+    display: inline-block;
+    font-size: 14px;
+    padding: 10px 0;
+    color: #afb6c5;
+    line-height: 1.2;
+  }
+  .photo-5 .word-card {
+    text-align: end;
+  }
+  .photo-5 .word-card img {
+    width: 50%;
   }
 }
 /*# sourceMappingURL=style.css.map */
