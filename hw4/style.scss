@@ -37,7 +37,7 @@ img {
     }
 }
 
-input {
+#menu-control {
     position: absolute;
     top: -500px;
 }
@@ -90,7 +90,7 @@ header .row {
     padding:  0 $distance ;
     margin-left: auto;
 }
-.btn a {
+.btn a ,.btn span{
     display: inline-block;
     border-radius: 10px;
     padding: 12px 30px;
@@ -152,7 +152,7 @@ section:nth-child(7){
     
     .recommanded-card{
         width: 100%;
-        background-color: rgba(146, 145, 235, 0.2);;
+        background-color: rgba(146, 145, 235, 0.2);
         margin-top: $distance;
         text-align: center;
         padding: $distance 0;
@@ -167,43 +167,129 @@ section:nth-child(7){
             font-size: 14px;
         }
     }
-    .recommanded-card-content{
-        padding: $distance ;
-        color: white;
-        .recommanded-card-title{
+}
+.recommanded-card-content{
+    padding: $distance ;
+    color: white;
+    .recommanded-card-title{
+        margin-bottom: $distance;
+        h3{
+            font-size: 28px;
             margin-bottom: $distance;
 
-            h3{
-                font-size: 28px;
-                margin-bottom: $distance;
-
-            }
-            p{
-                font-size: 14px;
-                line-height: 1.5;
-            }
-
         }
-        .recommanded-btn {
-            a{
-                padding: 15px 20px;
-                font-size: 14px;
-                display: inline-block;
-                color: #fff;
-                border: 1px solid #fff;
-                font-weight: bold;
-                border-radius: 5px;
-                transition: 0.5s;
-                &:hover{
-                    background-color: $maincolor;
-                }
+        p{
+            font-size: 14px;
+            line-height: 1.5;
+        }
+    }
+    .recommanded-btn {
+        a{
+            padding: 15px 20px;
+            font-size: 14px;
+            display: inline-block;
+            color: #fff;
+            border: 1px solid #fff;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: 0.5s;
+            &:hover{
+                background-color: $maincolor;
             }
-
-
         }
     }
 }
 
+.sendemail{
+    display: flex;
+    align-items: center;
+}
+.worksteps{
+    margin-top: $distance;
+}
+.worksteps-title{
+    font-size: 28px;
+    padding: $distance 0;
+}
+.projects-photo .txt{
+    position: absolute;
+    top:0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: $maincolor;
+    border-radius: 10px;
+    position: absolute;
+    padding-left: $distance;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    color: white;
+    opacity: 0;
+    transition: 0.8s;
+}
+.projects-photo{
+    position: relative;
+    img{
+        width: 100%;
+    }
+    &:hover .txt{
+        opacity: 1;
+    }
+}
+
+.subscribe-area-txt {
+    p{
+        font-size: 28px;
+        line-height: 1.5;
+        text-align: center;
+    }
+    input{
+        width: 100%;
+    }
+}
+.projects-photo .txt p{
+    font-size: 28px;
+    margin-top: 10%;
+}
+.projects-photo .txt a{
+    color:white;
+    &:hover {
+        color: $darksubcolor;
+    }
+}
+.projects-btn{
+    text-align: end;
+    height: 100%;
+    line-height: 82px;
+}
+.projects-btn a{
+    display: inline;
+}
+.signup-txt{
+    display: flex;
+    flex-direction: column;
+    p{
+        font-size: 30px;
+        line-height: 1.5;
+    }
+}
+.subscribe-area{
+    padding: 50px 0;
+}
+.signup-photo {
+    img{
+        width: 100%;
+    }
+}
+p,input, textarea{
+    line-height: 32px;
+    padding-left: 10px;
+    margin: 10px;
+}
+.send-btn{
+    margin: 10px;
+}
 @media screen and(max-width:767px) {
     .hb {
         display: block;
@@ -244,7 +330,7 @@ section:nth-child(7){
     .subscribe {
         display: none;
     }
-    #menu-control:checked ~ .container .row .col-md-6 .nav {
+    #menu-control:checked ~ header .container .row .col-md-6 .nav {
         position: fixed;
         display: block;
         right: 0;
@@ -260,6 +346,9 @@ section:nth-child(7){
     }
     .nav a {
         border-bottom: 1px solid $subcolor;
+    }
+    .projects-btn{
+        text-align: left;
     }
 }
 @media screen and(min-width:768px) {
@@ -309,11 +398,55 @@ section:nth-child(7){
     }
     .recommanded{
         .recommanded-card{
+            text-align: left;
             p{
                 font-size: 58px;
-                text-align: left;
+                padding: $distance ;
+                
+            }
+            span{
+                display: block;
+                padding: $distance ;
+                line-height: 2;
+
+            }
+        }
+    }
+    .recommanded-card-content{
+        position: relative;
+        top: 25%;
+        .recommanded-card-title{
+            width: 80%;
+            
+            h3{
+                font-size: 42px;
+                
             }
 
+        }
+    }
+    .worksteps{
+        .row{
+            align-items: center;
+        }
+    }
+    
+    .worksteps-content:nth-of-type(odd) >.row{
+        flex-direction: row-reverse;
+    }
+    .signup-txt{
+        width: 80%;
+        p{
+            font-size: 52px;
+        }
+    }
+    .subscribe-area{
+        width: 600px;
+        margin: auto;
+    }
+    .subscribe-area-txt{
+        p{
+            font-size: 52px;
         }
     }
 }
