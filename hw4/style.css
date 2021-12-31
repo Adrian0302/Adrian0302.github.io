@@ -493,9 +493,6 @@ p, input, textarea {
   .projects-btn {
     text-align: left;
   }
-  .word-card .photo {
-    min-width: 50%;
-  }
   .photo-1 .word-card img {
     width: 40%;
   }
@@ -563,6 +560,15 @@ p, input, textarea {
     width: 80%;
     min-width: 50%;
   }
+  .workstep-number {
+    text-align: right;
+  }
+  .photo-1 {
+    margin-left: 10%;
+  }
+  .photo-3 {
+    margin-left: 5%;
+  }
   .sit-photo {
     text-align: center;
   }
@@ -609,6 +615,9 @@ p, input, textarea {
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
+  }
+  .worksteps-title h5 {
+    font-size: 42px;
   }
   .worksteps-content:nth-of-type(odd) > .row {
     -webkit-box-orient: horizontal;
