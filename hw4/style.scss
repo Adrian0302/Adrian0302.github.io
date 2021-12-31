@@ -1,23 +1,25 @@
-$maincolor:#1fde82;
+$maincolor: #1fde82;
 $subcolor: #afb6c5;
+$darksubcolor: #5d6678;
 $distance: 20px;
 $btnhovercolor: #5d6678;
+$fullbgccolor: #2570ff;
+$primarycolor: rgba(149, 204, 228, 0.9);
 
-
-body{
-    font-family: 'Roboto', sans-serif;;
-    a{
+body {
+    font-family: "Roboto", sans-serif;
+    a {
         text-decoration: none;
     }
 }
-header{
+header {
     padding: 15px 0;
     justify-content: space-between;
     position: sticky;
-    top:0;
+    top: 0;
     background-color: #fff;
-    z-index: 3;    
-    .src-only{
+    z-index: 3;
+    .src-only {
         position: absolute;
         width: 1px;
         height: 1px;
@@ -25,54 +27,57 @@ header{
     }
 }
 
-img{
+img {
     vertical-align: top;
 }
-.photo img{
+.photo {
     width: 100%;
+    img {
+        width: 100%;
+    }
 }
-input{
+
+input {
     position: absolute;
     top: -500px;
 }
-nav{
-    a{ 
+nav {
+    a {
         color: $subcolor;
         line-height: 54px;
         font-size: 16px;
     }
 }
-.nav a{
+.nav a {
     display: block;
-    color: black;
+    color: $subcolor;
 }
-header .row{
+header .row {
     justify-content: space-between;
 }
-section:nth-child(4)> .row{
-    flex-direction: row-reverse;
-}
-.subscribe{
+
+.subscribe {
     line-height: 54px;
     position: relative;
-    a{
+    a {
         right: 0;
         position: absolute;
         padding: 0px 20px;
         border: solid 1px $subcolor;
-        border-radius: 5px; 
-        &:hover{
+        border-radius: 5px;
+        box-sizing: border-box;
+        &:hover {
             background-color: $btnhovercolor;
             color: #fff;
-        }       
+        }
     }
 }
-.title h2{
+.title h2 {
     font-size: 42px;
     font-weight: 300;
     padding: $distance 0;
 }
-.block-txt p{
+.block-txt p {
     color: $subcolor;
     font-size: 14px;
     font-weight: 300;
@@ -80,33 +85,127 @@ section:nth-child(4)> .row{
     line-height: 1.5;
     padding: $distance 0;
 }
-
-.btn a{
+.sit-photo{
+    width: 60%;    
+    padding:  0 $distance ;
+    margin-left: auto;
+}
+.btn a {
     display: inline-block;
     border-radius: 10px;
     padding: 12px 30px;
     font-size: 14px;
-    line-height: 1.2;
     background-color: $maincolor;
+    white-space: nowrap;
     color: white;
     font-weight: 600;
     transition: 0.5s;
-    &:hover{
+    &:hover {
         background-color: $btnhovercolor;
     }
 }
-.video a{
+.video a {
     color: $subcolor;
     background-color: transparent;
 }
-.discription{
+.services h2 {
+    font-size: 30px;
+}
+section {
+    padding-bottom: $distance * 3;
+    padding-top: $distance;
+}
+.services-card {
+    padding: $distance;
+    box-shadow: 0px 0px 44px #eee;
+    height: 300px;
     display: flex;
     flex-direction: column;
-    margin: auto;
+    margin-top: $distance;
+    border-radius: 10px;
+    img {
+        width: 15%;
+    }
+    h3 {
+        font-size: 30px;
+        color: #1d273b;
+        font-weight: bold;
+        padding-top: $distance * 2;
+        padding-bottom: $distance;
+    }
+    p {
+        color: $darksubcolor;
+        line-height: 1.5;
+        font-size: 12px;
+    }
+    a {
+        color: $darksubcolor;
+        font-weight: bold;
+        display: block;
+        margin-top: auto;
+    }
+}
+section:nth-child(7){
+    background-color: $fullbgccolor;
+}
+.recommanded{
+    
+    .recommanded-card{
+        width: 100%;
+        background-color: rgba(146, 145, 235, 0.2);;
+        margin-top: $distance;
+        text-align: center;
+        padding: $distance 0;
+        color: #fff;
+        font-weight: bold;
+        border-radius: 5px;
+        p{
+            margin: 5px 0px;
+            font-size: 34px;
+        }
+        span{
+            font-size: 14px;
+        }
+    }
+    .recommanded-card-content{
+        padding: $distance ;
+        color: white;
+        .recommanded-card-title{
+            margin-bottom: $distance;
+
+            h3{
+                font-size: 28px;
+                margin-bottom: $distance;
+
+            }
+            p{
+                font-size: 14px;
+                line-height: 1.5;
+            }
+
+        }
+        .recommanded-btn {
+            a{
+                padding: 15px 20px;
+                font-size: 14px;
+                display: inline-block;
+                color: #fff;
+                border: 1px solid #fff;
+                font-weight: bold;
+                border-radius: 5px;
+                transition: 0.5s;
+                &:hover{
+                    background-color: $maincolor;
+                }
+            }
+
+
+        }
+    }
 }
 
-@media screen and(max-width:767px){
-    .hb{
+@media screen and(max-width:767px) {
+    .hb {
         display: block;
         width: 40px;
         height: 40px;
@@ -115,36 +214,37 @@ section:nth-child(4)> .row{
         right: 0;
         margin-left: auto;
     }
-    .hb span{
+    .hb span {
         background-color: white;
         width: 80%;
         height: 4px;
         position: absolute;
-        top:0;
+        top: 0;
         left: 0;
         right: 0;
-        bottom:0;
+        bottom: 0;
         margin-left: auto;
         margin-right: auto;
         border-radius: 2px;
     }
-    .hb span:first-child{
+    .hb span:first-child {
         margin-top: 10px;
     }
-    .hb span:last-child{
+    .hb span:last-child {
         margin-top: auto;
         margin-bottom: 10px;
     }
-    .hb span:nth-child(2){
+    .hb span:nth-child(2) {
         margin: auto;
     }
-    nav{
+    nav {
+        display: none;
+        padding-left: 20px;
+    }
+    .subscribe {
         display: none;
     }
-    .subscribe{
-        display: none;
-    }
-    #menu-control:checked~.container .row .col-md-6 .nav{
+    #menu-control:checked ~ .container .row .col-md-6 .nav {
         position: fixed;
         display: block;
         right: 0;
@@ -152,17 +252,68 @@ section:nth-child(4)> .row{
         height: calc(100% - 40px);
         background-color: #fff;
     }
-    .title h2{
+    .title h2 {
         font-size: 30px;
     }
-    section:nth-child(4)> .row{
+    section:nth-child(4) > .row {
         flex-wrap: wrap-reverse;
+    }
+    .nav a {
+        border-bottom: 1px solid $subcolor;
     }
 }
 @media screen and(min-width:768px) {
-    nav{
+    nav {
         display: flex;
         justify-content: space-between;
     }
-}
+    section:nth-child(4) > .row {
+        flex-direction: row-reverse;
+    }
+    .services h2 {
+        font-size: 42px;
+        padding: $distance $distance $distance 0;
+    }
+    .discription {
+        display: flex;
+        flex-direction: column;
+        margin: auto;
+    }
+    .photo {
+        width: 100%;
+        img {
+            width: 80%;
+        }
+    }
+    .sit-photo {
+        text-align: center;
+        img {
+            width: 70%;
+        }
+    }
 
+    .services-card {
+        height: 350px;
+        margin-top: $distance;
+        border-radius: 10px;
+
+        img {
+            width: 30%;
+        }
+        h3 {
+            font-size: 22px;
+        }
+        p {
+            font-size: 14px;
+        }
+    }
+    .recommanded{
+        .recommanded-card{
+            p{
+                font-size: 58px;
+                text-align: left;
+            }
+
+        }
+    }
+}
