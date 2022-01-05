@@ -62,42 +62,49 @@
                         <img src="homework4-img/logo.webp" alt="Maikon">
                     </a>
                 </h1>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+                    aria-controls="offcanvasRight"><span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse flex-grow-0" id="navbarTogglerDemo02">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 pe-5 text-black-50">
-                        <li class="nav-item">
-                            <a class="nav-link active text-black-50 border-bottom" aria-current="page" href="#">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-black-50" href="#">About</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-black-50" href="#">Services</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Team
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Case studio
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Contacts
-                            </a>
-                        </li>
-                    </ul>
-                    <form class="d-flex">
-                        <button class="btn btn-outline-success" type="submit">Subscribe</button>
-                    </form>
-                </div>
+
+                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+                    <div class="offcanvas-header">
+                        <h5></h5>
+                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                            aria-label="Close" id="offcanvasRightLabel">
+                        </button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 pe-5 text-black-50">
+                            <li class="nav-item">
+                                <a class="nav-link active text-black-50 border-bottom" aria-current="page" href="#">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-black-50" href="#">About</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-black-50" href="#">Services</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Team
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Case studio
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Contacts
+                                </a>
+                            </li>
+                        </ul>
+                        <form class="d-flex d-sm-none d-md-block">
+                            <button class="btn btn-outline-success" type="submit">Subscribe</button>
+                        </form>
+                    </div>
+
+                </div> 
             </div>
         </nav>
-
     </header>
     <section class="container-lg main-content mt-5">
         <div class="row row-cols-1 row-cols-md-2 main-content-text">
@@ -280,7 +287,7 @@
                 </div>
             </div>
             <div class="col">
-                <div class="main-content-photo">
+                <div class="main-content-photo text-end">
                     <img src="homework4-img/home-image-3.svg" alt="pic01" class="img-fluid">
                 </div>
             </div>
@@ -512,10 +519,10 @@
             </div>
 
         </div>
-        <div class="row row-cols-md-3 row-cols-1">
+        <div class="row row-cols-lg-3 row-cols-1">
             <div class="col">
                 <div class="card text-white">
-                    <img src="homework4-img/projects-1.png" alt="project1">
+                    <img src="homework4-img/projects-1.png" alt="project1" class="img-fluid">
                     <div class="card-img-overlay  bg-success d-flex flex-column justify-content-around">
                         <h5 class="fs-1 p-3">
                             Minimal Creative "Impuls"</h5>
@@ -525,7 +532,7 @@
             </div>
             <div class="col">
                 <div class="card text-white">
-                    <img src="homework4-img/projects-2.png" alt="project2">
+                    <img src="homework4-img/projects-2.png" alt="project2 " class="img-fluid">
                     <div class="card-img-overlay  bg-success d-flex flex-column justify-content-around">
                         <h5 class="fs-1 p-3">
                             Travel Company "Tour Up""</h5>
@@ -535,7 +542,7 @@
             </div>
             <div class="col">
                 <div class="card text-white">
-                    <img src="homework4-img/projects-3.png" alt="project3">
+                    <img src="homework4-img/projects-3.png" alt="project3" class="img-fluid">
                     <div class="card-img-overlay  bg-success d-flex flex-column justify-content-around">
                         <h5 class="fs-1 p-3">
                             Restaurant Pizza "Little Italy"""</h5>
