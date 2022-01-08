@@ -1,0 +1,372 @@
+@charset "UTF-8";
+a {
+  text-decoration: none;
+}
+
+img {
+  vertical-align: top;
+}
+
+.bg-primary-color {
+  background-color: #ee4d2d;
+}
+
+.text-primary-orange {
+  color: #ee4d2d;
+}
+
+.sr-only {
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.search-input {
+  border-color: transparent;
+}
+
+.header-help a,
+.header-help span {
+  color: white;
+  font-size: 14px;
+}
+
+.w-95 {
+  width: 95%;
+}
+
+.search-item a {
+  color: white;
+  padding-left: 10px;
+  font-size: 14px;
+}
+
+.navbar-cards {
+  font-size: 0;
+}
+
+.navbar-cards a,
+.category a {
+  color: black;
+}
+
+.navbar-photo {
+  width: 45px;
+  height: 45px;
+}
+
+.navbar-card-text {
+  font-size: 14px;
+  margin-top: 5px;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+.bg-grey {
+  background-color: #eee;
+}
+
+.bg-red {
+  background-color: #cf021b;
+}
+
+.discount {
+  width: 50px;
+  height: 40px;
+  position: relative;
+  background-color: rgba(255, 212, 36, 0.9);
+  right: 0;
+  top: 0;
+}
+
+.banner-discount-card {
+  border-radius: 0 0 20px 20px;
+}
+
+.discount-aa::after {
+  content: "";
+  position: absolute;
+  border-bottom: 10px solid transparent;
+  border-right: 25px solid rgba(255, 212, 36, 0.9);
+  border-left: 25px solid rgba(255, 212, 36, 0.9);
+  top: 100%;
+  left: 0;
+}
+
+.card-text:before {
+  content: "$";
+}
+
+.w-90 {
+  width: 90%;
+}
+
+.onsale-price p {
+  font-size: 22px;
+}
+
+.onsale-price p:before {
+  content: "$";
+}
+
+.sale-bar {
+  padding: 2px 30%;
+  border-radius: 12px;
+}
+
+.shopeeMallArea > .container-xl > .row {
+  border-bottom: solid 1px #eee;
+}
+
+.shopeeMallArea-card-text {
+  bottom: -5px;
+}
+
+.w-45 {
+  width: 44%;
+}
+
+.hotSearchArea-card > .row {
+  border-top: 1px solid #eee;
+}
+
+.hotSearchArea-card > .row > .col-xl-2 {
+  border-right: 1px solid #eee;
+}
+
+.hotSale-title {
+  border-bottom: solid 1px #eee;
+}
+
+.hotSale-photo > span {
+  display: block;
+  line-height: 30px;
+  font-size: 12px;
+  width: 30px;
+  height: 30px;
+  background-color: #ee4d2d;
+  position: absolute;
+  top: 0;
+}
+
+.hotSale-photo > span:after {
+  display: block;
+  content: "";
+  line-height: 30px;
+  font-size: 12px;
+  border-top: solid 10px #ee4d2d;
+  border-left: solid 15px white;
+  border-right: solid 15px white;
+}
+
+.hotSale-photo p {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  background-color: rgba(221, 221, 221, 0.7);
+  color: white;
+  font-size: 12px;
+  padding: 3px 51px;
+  top: 85%;
+}
+
+.see-all {
+  font-size: 12px;
+}
+
+.vertiacl-baseline {
+  vertical-align: baseline !important;
+}
+
+.daily-Discover-card:hover::before, .daily-Discover-card:hover::after {
+  opacity: 1;
+}
+
+.daily-Discover-card::before {
+  content: "";
+  display: block;
+  border: #ee4d2d 1px solid;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  opacity: 0;
+}
+
+.daily-Discover-card {
+  z-index: 1;
+}
+
+.daily-Discover-card::after {
+  content: "找相似";
+  display: block;
+  font-size: 12px;
+  text-align: center;
+  background-color: #ee4d2d;
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  color: white;
+  font-weight: blod;
+  padding: 5px 0;
+  opacity: 0;
+  z-index: 1;
+}
+
+.daily-Discover-title {
+  border-bottom: 3px solid #cf021b;
+}
+
+.daily-Discover-card {
+  background-color: #fff;
+}
+
+.daily-Discover-card-photo p {
+  font-size: 8px;
+  position: absolute;
+  display: inline-block;
+  background-color: #ee4d2d;
+  padding: 0px 2px;
+  color: white;
+  left: -5px;
+  top: 12px;
+}
+
+.daily-Discover-card-photo p::after {
+  content: "";
+  display: block;
+  border-bottom: transparent solid 4px;
+  border-right: #ee4d2d solid 3px;
+  position: absolute;
+}
+
+.discount-small {
+  background-color: rgba(255, 212, 36, 0.9);
+  font-size: 10px;
+  padding: 7px 5px;
+  color: #cf021b;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.discount-small::after {
+  content: "";
+  display: block;
+  border-bottom: transparent solid 5px;
+  border-left: rgba(255, 212, 36, 0.9) solid 14px;
+  border-right: rgba(255, 212, 36, 0.9) solid 15px;
+  position: absolute;
+  left: 0;
+  top: 100%;
+}
+
+.cost {
+  font-size: 14px;
+  color: #cf021b;
+}
+
+.cost::before {
+  content: "$";
+}
+
+.sell-amount {
+  font-size: 12px;
+}
+
+.sell-amount::before {
+  content: "已售出";
+}
+
+.daily-Discover-text p {
+  font-size: 12px;
+}
+
+.z-1 {
+  z-index: 1;
+}
+
+.text-overflow {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.info {
+  border-top: solid 3px #ee4d2d;
+}
+
+article h3,
+article h4,
+article h5 {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.6);
+  font-weight: bold;
+}
+
+article p {
+  font-size: 12px;
+}
+
+.all-category li > a {
+  display: inline-block;
+  border-right: #aaa solid 1px;
+  padding: 0px 4px;
+}
+
+.all-category li {
+  font-size: 0;
+}
+
+.all-category a {
+  font-size: 12px;
+  color: #aaa;
+  padding: 0px 4px;
+}
+
+.all-category ul {
+  margin-top: 5px;
+}
+
+.all-category a:hover {
+  color: #cf021b;
+}
+
+.all-category p {
+  padding: 0 4px;
+}
+
+.customer a {
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 12px;
+}
+
+.about-us a {
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 12px;
+}
+
+.subscribe span {
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.subscribe a {
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 12px;
+}
+
+.customer a:hover, .subscribe a:hover, .about-us a:hover {
+  color: #cf021b;
+}
+
+.download span, .pay-money span {
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 12px;
+}
+
+.download-photots {
+  margin-top: 20px;
+}
+/*# sourceMappingURL=style.css.map */
