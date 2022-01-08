@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+
+<body>
+    <h1>寶可夢圖鑑列表</h1>
+    <button id="button2">載入寶可夢圖鑑列表fetchPokemon()</button>
+    <button id="showAll">載入寶可夢圖鑑列表appendChild()</button>
+    <button id='reset'>Reset</button>
+    <button id="add">pokemon+</button>
+    <button id="minus">pokemon-</button>
+    <div id='container'></div>
+
+
+
+    <script>
+
+        let pokemonCount = 0;
+
+
+        function disply(count) {
+            let pokemons = "";
+            for (let i = 1; i < count; i++) {
+                let fileName = i.toString().padStart(3, "0")
+                let pathFile = `https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${fileName}.png`
+                let pokemon = `<img src='${pathFile}'/>`
+
+                pokemons += pokemon
+            }
+            container.innerHTML = pokemons
+        }
+
+        // function showAll() {
+        //     pokemonCount = 898
+        //     disply(pokemonCount)
+        // }
+        
+        let showAll = document.getElementById('showAll')
+        showAll.addEventListener('click', function () {
+            container.innerHTML =""
+            for (let i = 1; i <= 898; i++) {
+                let fileName = i.toString().padStart(3, '0')
+                let path = `https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${fileName}.png`
+
+                let img = document.createElement('img')
+                img.setAttribute ('src',path)
+                container.append(img)
+            }
+            pokemonCount = 898
+        })
+
+        let btn2 = document.getElementById('button2')
+        btn2.onclick = function(event){
+
+            container.innerHTML =""
+            let fileName,path
+            for(let i=1;i<=898;i++){
+                fileName = i.toString().padStart(3,'0')
+                path = `https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${fileName}.png`
+
+                let img = document.createElement("img")
+                img.setAttribute("src",path)
+
+                container.append(img)
+            }
+        }
+
+
+        let resetbtn = document.getElementById('reset')
+        resetbtn.addEventListener('click',function(){
+            container.innerHTML =""
+            pokemonCount=0;
+        })
+    
+        let minusbtn = document.getElementById('minus')
+        minusbtn.addEventListener('click',function(){
+            if(container.lastChild!=null){
+                container.removeChild(container.lastChild)
+            }
+            pokemonCount--
+        })
+    
+        let addbtn = document.getElementById('add')
+        addbtn.addEventListener('click',function(){
+            pokemonCount = container.childElementCount
+            if(pokemonCount<898){
+                pokemonCount++
+                let fileName,Path
+                fileName = pokemonCount.toString().padStart(3,'0')
+                path = `https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${fileName}.png`
+    
+                let img = document.createElement("img")
+                img.setAttribute("src",path)
+    
+                container.append(img)
+            }
+        })
+    
+
+    
+    </script>
+</body>
+
+
