@@ -40,19 +40,17 @@
             ]
         }
 
-        console.log(JSON.stringify(marketingShare))
-
         let companies = [], data = []
         window.onload = function () {
 
             createTable(marketingShare.titles,marketingShare.data)
+
             marketingShare.data.forEach(item=>{
                 companies.push(item['Company'])
                 data.push(item.Ratio)
             })
 
 
-            createTable(marketingShare.titles,marketingShare.data)
             drawPieChart(companies, data)
         }
     </script>
