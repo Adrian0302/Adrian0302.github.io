@@ -11,9 +11,10 @@
 </head>
 
 <body>
-
-    <canvas id="mkShare"></canvas>
-    <table class="table table-bordered table-striped">
+    <div class="container">
+        <canvas id="mkShare"></canvas>
+        <table class="table table-bordered table-striped text-center">
+    </div>
 
     </table>
 
@@ -102,6 +103,7 @@
         }
 
         let table = document.querySelector("table")
+        table.classList.add('mt-5')
         function createTable(titleArray,dataArray){
             createTbody(dataArray)
             createThead(titleArray)
@@ -126,6 +128,7 @@
         }
         function createThead(titleArray){
             let thead = document.createElement("thead")
+            thead.classList.add('table-dark')
             let theadTr = document.createElement("tr")
             titleArray.forEach(function(item){
                 let th = document.createElement("th")
