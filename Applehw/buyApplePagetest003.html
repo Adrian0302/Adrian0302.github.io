@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>buyApplePage</title>
+    <link rel="stylesheet" href="/reset.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+        integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+    <style>
+        .color p {
+            margin-bottom: 0;
+        }
+
+        .color {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+        }
+        .accordin-item:nth-child(2) span:nth-child(2)::before{
+            content: 'NT$';
+        }
+
+        .text {
+            padding: 0px 20px;
+            margin: 10px 10px 0px 10px;
+        }
+        .button {
+            width: 30%;
+            height: 100px;
+            margin: 5px 10px;
+        }
+
+        .color {
+            font-size: 12px;
+        }
+
+        .color span {
+            content: '';
+            display: block;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
+
+
+        .button span:nth-child(1) {
+            font-size: 14px;
+            color: #000;
+            font-weight: 700;
+        }
+
+        .button span:nth-child(2)::before{
+            content: 'NT$'
+        }
+
+        .button span:nth-child(2)::after{
+            content: '起'
+        }
+        .button span:nth-child(2){
+            font-size: 12px;
+        }
+
+        .accordion-button {
+            display: block;
+        }
+
+        .accordion-button[aria-expanded='true'] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 切換頁面 -->
+
+    <header class="d-flex justify-content-center align-items-center">
+        <a href="#" class="fs-2 text-black me-5"><i class="fab fa-apple"></i></a>
+        <button id="ipadbtn">ipad</button>
+        <button id="iphonebtn">iphone</button>
+        <button id="macprobtn">macpro</button>
+    </header>
+
+    <section class="container">
+        <div class="row">
+            <div class="col-md-6 col-12">
+                <div class="photo text-end">
+                    <!-- img (O)-->
+                </div>
+            </div>
+            <div class="col-md-6 col-12">
+                <div class="content">
+                    <p class="fs-1 fw-bold">購買iPad Air</p>
+                    <div class="accordion" id="accordionPanelsStayOpenExample">
+                        <div class="accordion-item">
+                            <button class="accordion-button displayColor" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            </button>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                                data-bs-parent="#accordionExample">
+                                <div class="text fw-bold">外觀</div>
+                                <div class="accordion-body d-flex flex-wrap device-color">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+
+
+
+
+
+    <script>
+        //初始頁面
+        const photodiv = document.querySelector('.photo')
+        window.onload = function () {
+            initializePage()
+        }
+        //資料結構
+        const appleData = [
+            {
+                "id": 1,
+                "productName": "ipad Air",
+                "firstImg": "/iphone-ipad/ipad-air-firstpic.jfif",
+                "price": 18900,
+                "appearance":
+                    [
+                        {
+                            "Color": "spaceGray",
+                            "Name": "太空灰色",
+                            "Hex": "#B2B5B7",
+                            "imgSrc": "/iphone-ipad/ipad-air-select-wifi-spacegray.png"
+
+                        },
+                        {
+                            "Color": "silver",
+                            "Name": "銀色",
+                            "Hex": "#DEE0DF",
+                            "imgSrc": "/iphone-ipad/ipad-air-select-wifi-silver.png"
+
+                        },
+                        {
+                            "Color": "green",
+                            "Name": "綠色",
+                            "Hex": "#CDDECA",
+                            "imgSrc": "/iphone-ipad/ipad-air-select-wifi-green.png"
+
+                        },
+                        {
+                            "Color": "golden",
+                            "Name": "玫瑰金色",
+                            "Hex": "#EBCAC3",
+                            "imgSrc": "/iphone-ipad/ipad-air-select-wifi-gold.png"
+
+                        },
+                        {
+                            "Color": "skyBlue",
+                            "Name": "天藍色",
+                            "Hex": "#C9D8E5",
+                            "imgSrc": "/iphone-ipad/ipad-air-select-wifi-blue.png"
+
+                        }
+                    ],
+                "spec": [
+                    {
+                        "specName": "儲存裝置",
+                        "detail": [
+                            {
+                                "name": "64GB",
+                                "fit": 0
+                            },
+                            {
+                                "name": "256GB",
+                                "fit": 5000
+                            }
+                        ]
+                    },
+                    {
+                        "specName": "連線能力",
+                        "detail": [
+                            {
+                                "name": "WiFi",
+                                "fit": 0
+                            },
+                            {
+                                "name": "WiFi+行動網路",
+                                "fit": 4300
+                            }
+                        ]
+                    }
+                ]
+            },
+        ]
+
+        function initializePage() {
+            createImg()
+            createColorbtn()
+            createDevice()
+            setAccordion()
+        }
+
+
+        function createImg() {
+            const firstImgUrl = appleData[0].firstImg
+            console.log(firstImgUrl)
+            const img = document.createElement('img')
+            img.src = firstImgUrl
+            photodiv.appendChild(img)
+        }
+
+        function createColorbtn() {
+            const appearanceArray = appleData[0].appearance
+            appearanceArray.forEach(item => {
+                const deviceColordiv = document.querySelector('.device-color')
+                const btn = document.createElement('button')
+                const p = document.createElement('p')
+                const span = document.createElement('span')
+
+                const bgc = item.Hex
+                const name = item.Name
+
+                btn.classList.add('btn', 'btn-outline-secondary', 'button', 'color')
+                btn.setAttribute('data-bs-toggle', 'collapse')
+                btn.setAttribute('data-bs-target', '#collapseOne')
+                span.setAttribute('style', `background-color:${bgc}`)
+                p.innerText = name
+
+                btn.append(span, p)
+                deviceColordiv.appendChild(btn)
+
+            })
+
+        }
+
+        function createDevice() {
+
+            const specArray = appleData[0].spec
+            const accordion = document.querySelector('.accordion')
+
+            specArray.forEach((item,index)=> {
+                const accordionItemDiv = document.createElement('div') //最外層的div 共有兩個
+                accordionItemDiv.classList.add('accordion-item')
+
+                const specHeadBtn = document.createElement('button') //控制外面的btn
+                specHeadBtn.classList.add('accordion-button', 'collapsed')
+
+                const div = document.createElement('div') //和btn同層的div
+                div.classList.add('accordion-collapse','collapse')
+
+                const accordionBodyDiv = document.createElement('div') //用來包裝置規格和裝置名稱的btn的div
+                accordionBodyDiv.classList.add('accordion-body') 
+
+                const span = document.createElement('span')
+                span.innerText = item.specName
+                span.classList.add('fw-bold','ms-3','my-3','d-inline-block')
+
+                const btnsDiv = document.createElement('div') //用來裝所有按鈕的div 因為按鈕要flex 所以一定要包
+                btnsDiv.classList.add('d-flex')
+                
+                //製作按鈕
+                item.detail.forEach((col)=> {
+                    const textSpan = document.createElement('span') 
+                    const priceSpan = document.createElement('span')
+                    const btn = document.createElement('button')
+                    const price = appleData[0].price + col.fit
+
+                    btn.classList.add('btn', 'btn-outline-secondary', 'd-flex', 'flex-column', 'device-memory','text-black','ms-4','button','justify-content-center','align-items-center')
+                    textSpan.innerText = col.name
+                    priceSpan.innerText = price
+
+                    btn.append(textSpan, priceSpan)
+
+                    btnsDiv.append(btn)
+                })
+                accordionBodyDiv.append(span,btnsDiv)
+                div.append(accordionBodyDiv)
+
+
+                accordionItemDiv.append(specHeadBtn,div)
+                accordion.append(accordionItemDiv)
+            })
+        }
+
+        function setAccordion(){
+
+            const setAccordionBtn = document.querySelector('.accordion-item:nth-child(2) button')
+            console.log(setAccordionBtn)
+            setAccordionBtn.setAttribute('data-bs-toggle','collapse')
+            setAccordionBtn.setAttribute('data-bs-target','#collapseTwo')
+            setAccordionBtn.setAttribute('aria-expanded','false')
+            setAccordionBtn.setAttribute('aria-controls','collapseTwo')
+
+            const secondControl = document.querySelector('.accordion-item:nth-child(2) .accordion-collapse')
+            console.log(secondControl)
+            secondControl.setAttribute('id','collapseTwo')
+            secondControl.setAttribute('aria-labelledby','headingTwo')
+            secondControl.setAttribute('data-bs-parent','#accordionExample')
+
+            const innerBtn = document.querySelectorAll('.accordion-item:nth-child(2) .accordion-collapse .accordion-body .d-flex button')
+            console.log(innerBtn)
+            innerBtn.forEach(btn=>{
+                btn.setAttribute('data-bs-toggle','collapse')
+                btn.setAttribute('data-bs-target','#collapseTwo')
+            })
+
+            const setAccordionBtn2 = document.querySelector('.accordion-item:nth-child(3) button')
+            console.log(setAccordionBtn)
+            setAccordionBtn2.setAttribute('data-bs-toggle','collapse')
+            setAccordionBtn2.setAttribute('data-bs-target','#collapseThree')
+            setAccordionBtn2.setAttribute('aria-expanded','false')
+            setAccordionBtn2.setAttribute('aria-controls','collapseThree')
+
+            const secondControl2 = document.querySelector('.accordion-item:nth-child(3) .accordion-collapse')
+            console.log(secondControl)
+            secondControl2.setAttribute('id','collapseThree')
+            secondControl2.setAttribute('aria-labelledby','headingThree')
+            secondControl2.setAttribute('data-bs-parent','#accordionExample')
+
+            const innerBtn2 = document.querySelectorAll('.accordion-item:nth-child(3) .accordion-collapse .accordion-body .d-flex button')
+            console.log(innerBtn)
+            innerBtn2.forEach(btn=>{
+                btn.setAttribute('data-bs-toggle','collapse')
+                btn.setAttribute('data-bs-target','#collapseThree')
+            })
+        }
+        
+    </script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,0 +1,57 @@
+[
+    {
+        "id": 1,
+        "productName": "ipadAir",
+        "firstImg": "/iphone-ipad/ipad-air-firstpic.jfif",
+        "appearance": 
+        [
+            {
+                "Color": "spaceGray",
+                "Name":"太空灰色",
+                "Hex" :"#B2B5B7",
+                "imgSrc" :"/iphone-ipad/ipad-air-select-wifi-spacegray.png"
+
+            },
+            {
+                "Color": "silver",
+                "Name":"銀色",
+                "Hex" :"#DEE0DF",
+                "imgSrc" :"/iphone-ipad/ipad-air-select-wifi-silver.png"
+
+            },
+            {
+                "Color": "green",
+                "Name":"綠色",
+                "Hex" :"#CDDECA",
+                "imgSrc" :"/iphone-ipad/ipad-air-select-wifi-green.png"
+
+            },
+            {
+                "Color": "golden",
+                "Name":"玫瑰金色",
+                "Hex" :"#EBCAC3",
+                "imgSrc" :"/iphone-ipad/ipad-air-select-wifi-gold.png"
+
+            },
+            {
+                "Color": "skyBlue",
+                "Name":"天藍色",
+                "Hex" :"#C9D8E5",
+                "imgSrc" :"/iphone-ipad/ipad-air-select-wifi-blue.png"
+
+            }
+        ],
+
+        "ram": [
+            {
+                "GygateByte":"64",
+                "Price": 18900
+            },
+            {
+                "GygateByte":"256",
+                "Price": 23900
+            }
+        ]
+    }
+]
+
