@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>buyApplePage</title>
+    <link rel="stylesheet" href="/reset.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+        integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+    <style>
+        .color p {
+            margin-bottom: 0;
+        }
+
+        .color {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+        }
+
+        .accordin-item:nth-child(2) span:nth-child(2)::before {
+            content: 'NT$';
+        }
+
+        .text {
+            padding: 0px 20px;
+            margin: 10px 10px 0px 10px;
+        }
+
+        .button {
+            width: 30%;
+            height: 100px;
+            margin: 5px 10px;
+        }
+
+        .color {
+            font-size: 12px;
+        }
+
+        .color span {
+            content: '';
+            display: block;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
+
+
+        .button span:nth-child(1) {
+            font-size: 14px;
+            color: #000;
+            font-weight: 700;
+        }
+
+        .button span:nth-child(2)::before {
+            content: 'NT$'
+        }
+
+        .button span:nth-child(2)::after {
+            content: '起'
+        }
+
+        .button span:nth-child(2) {
+            font-size: 12px;
+        }
+
+        .accordion-button {
+            display: block;
+        }
+
+        .accordion-button[aria-expanded='true'] {
+            display: none;
+        }
+
+        img {
+            vertical-align: top;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 切換頁面 -->
+
+    <header class="d-flex justify-content-center align-items-center bg-dark text-white p-3">
+        <a href="#" class="fs-4 me-5 text-white"><i class="fab fa-apple"></i></a>
+        <button id="ipadbtn" class="btn btn-dark text-white me-2">ipadAir</button>
+        <button id="iphonebtn" class="btn btn-dark text-white me-2">ipad</button>
+        <button id="ipadMiniBtn" class="btn btn-dark text-white me-2">ipadMini</button>
+    </header>
+
+    <section class="container">
+        <div class="row">
+            <div class="col-md-6 col-12">
+                <div class="photo text-end">
+                    <!-- img (O)-->
+                </div>
+            </div>
+            <div class="col-md-6 col-12">
+                <div class="content">
+                    <p class="fs-1 fw-bold buy-item">購買iPad Air</p>
+                    <div class="accordion" id="accordionPanelsStayOpenExample">
+                        <div class="accordion-item">
+                            <button class="accordion-button displayColor" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                外觀
+                            </button>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                                data-bs-parent="#accordionExample">
+                                <div class="text fw-bold">外觀</div>
+                                <div class="accordion-body d-flex flex-wrap device-color">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <button class="accordion-button collapsed displayRam" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false"
+                                aria-controls="collapseTwo">
+                                儲存裝置
+                            </button>
+                            <div id="collapseTwo" class="accordion-collapse collapse device"
+                                aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <div class="text fw-bold">儲存裝置</div>
+                                </div>
+                                <div class="d-flex px-4" id="device-accordion"></div>
+
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <button class="accordion-button collapsed displayNet" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false"
+                                aria-controls="collapseThree">
+                                連線能力
+                            </button>
+                            <div id="collapseThree" class="accordion-collapse collapse connect"
+                                aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <div class="text fw-bold">連線能力</div>
+                                </div>
+                                <div class="d-flex px-4" id="connect-accordion"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="showMoney"></div>
+            </div>
+
+    </section>
+
+
+
+
+
+
+    <script>
+        //初始頁面
+        const photodiv = document.querySelector('.photo')
+        const ipadbtn = document.getElementById('ipadbtn')
+        const iphonebtn = document.getElementById('iphonebtn')
+        const ipadMinibtn = document.getElementById('ipadMiniBtn')
+
+
+
+        window.onload = function () {
+            initializePage(0, 0)
+            ipadbtn.addEventListener('click', ipadAir)
+            iphonebtn.addEventListener('click', iphone)
+            ipadMinibtn.addEventListener('click',ipadMini)
+
+        }
+        //資料結構
+        const appleData = [
+            {
+                "id": 1,
+                "productName": "ipad Air",
+                "firstImg": "iphone-ipad/ipad-air-firstpic.jfif",
+                "price": 18900,
+                "appearance":
+                    [
+                        {
+                            "Color": "spaceGray",
+                            "Name": "太空灰色",
+                            "Hex": "#B2B5B7",
+                            "imgSrc": "iphone-ipad/ipad-air-select-wifi-spacegray.png"
+
+                        },
+                        {
+                            "Color": "silver",
+                            "Name": "銀色",
+                            "Hex": "#DEE0DF",
+                            "imgSrc": "iphone-ipad/ipad-air-select-wifi-silver.png"
+
+                        },
+                        {
+                            "Color": "green",
+                            "Name": "綠色",
+                            "Hex": "#CDDECA",
+                            "imgSrc": "iphone-ipad/ipad-air-select-wifi-green.png"
+
+                        },
+                        {
+                            "Color": "golden",
+                            "Name": "玫瑰金色",
+                            "Hex": "#EBCAC3",
+                            "imgSrc": "iphone-ipad/ipad-air-select-wifi-gold.png"
+
+                        },
+                        {
+                            "Color": "skyBlue",
+                            "Name": "天藍色",
+                            "Hex": "#C9D8E5",
+                            "imgSrc": "iphone-ipad/ipad-air-select-wifi-blue.png"
+
+                        }
+                    ],
+                "spec": [
+                    {
+                        "specName": "儲存裝置",
+                        "detail": [
+                            {
+                                "type": "spec-capacity-64",
+                                "name": "64GB",
+                                "fit": 0
+
+                            },
+                            {
+                                "type": "spec-capacity-256",
+                                "name": "256GB",
+                                "fit": 5000
+                            }
+                        ]
+                    },
+                    {
+                        "specName": "連線能力",
+                        "detail": [
+                            {
+                                "type": "spec-onlywifi",
+                                "name": "Wi-Fi",
+                                "fit": 0
+                            },
+                            {
+                                "type": "spec-wifiandNet",
+                                "name": "Wi-Fi+行動網路",
+                                "fit": 4300
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "productName": "ipad",
+                "firstImg": "ipad/firstImg.jfif",
+                "price": 10500,
+                "appearance":
+                    [
+                        {
+                            "Color": "spaceGray",
+                            "Name": "太空灰色",
+                            "Hex": "#B5B8BB",
+                            "imgSrc": "ipad/black-ipad.png"
+
+                        },
+                        {
+                            "Color": "silver",
+                            "Name": "銀色",
+                            "Hex": "#DEE0DF ",
+                            "imgSrc": "ipad/ipad-2021-hero-silver-wifi-select.png"
+
+                        },
+                    ],
+                "spec": [
+                    {
+                        "specName": "儲存裝置",
+                        "detail": [
+                            {
+                                "type": "spec-capacity-64",
+                                "name": "64GB",
+                                "fit": 0
+
+                            },
+                            {
+                                "type": "spec-capacity-256",
+                                "name": "256GB",
+                                "fit": 4500
+                            }
+                        ]
+                    },
+                    {
+                        "specName": "連線能力",
+                        "detail": [
+                            {
+                                "type": "spec-onlywifi",
+                                "name": "Wi-Fi",
+                                "fit": 0
+                            },
+                            {
+                                "type": "spec-wifiandNet",
+                                "name": "Wi-Fi+行動網路",
+                                "fit": 4000
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": 3,
+                "productName": "iPad Mini",
+                "firstImg": "ipadMini/ipad-mini-select-202109.jfif",
+                "price": 14900,
+                "appearance":
+                    [
+                        {
+                            "Color": "spaceGray",
+                            "Name": "太空灰色",
+                            "Hex": "#B5B8BA",
+                            "imgSrc": "ipadMini/ipad-mini-select-wifi-space-gray-202109.png"
+
+                        },
+                        {
+                            "Color": "pink",
+                            "Name": "粉紅色",
+                            "Hex": "#E8D1CF",
+                            "imgSrc": "ipadMini/ipad-mini-select-wifi-pink-202109.png"
+
+                        },
+                        {
+                            "Color": "purple",
+                            "Name": "紫色",
+                            "Hex": "#BEBDD4",
+                            "imgSrc": "ipadMini/ipad-mini-select-wifi-space-gray-202109.png"
+
+                        },
+                        {
+                            "Color": "star",
+                            "Name": "星光色",
+                            "Hex": "#E5DFD5",
+                            "imgSrc": "ipadMini/ipad-mini-select-wifi-starlight-202109.png"
+
+                        },
+                    ],
+                "spec": [
+                    {
+                        "specName": "儲存裝置",
+                        "detail": [
+                            {
+                                "type": "spec-capacity-64",
+                                "name": "64GB",
+                                "fit": 0
+
+                            },
+                            {
+                                "type": "spec-capacity-256",
+                                "name": "256GB",
+                                "fit": 4500
+                            }
+                        ]
+                    },
+                    {
+                        "specName": "連線能力",
+                        "detail": [
+                            {
+                                "type": "spec-onlywifi",
+                                "name": "Wi-Fi",
+                                "fit": 0
+                            },
+                            {
+                                "type": "spec-wifiandNet",
+                                "name": "Wi-Fi+行動網路",
+                                "fit": 4500
+                            }
+                        ]
+                    }
+                ]
+            },
+        ]
+
+
+        function ipadAir() {
+            clear()
+            initializePage(0, 0)
+
+        }
+
+        function iphone() {
+            clear()
+            initializePage(1, 0)
+        }
+
+        function ipadMini(){
+            clear()
+            initializePage(2,0)
+        }
+        function initializePage(pageNum, num) {
+            createImg(pageNum)
+            createColorbtn(pageNum)
+            createDevice(pageNum, num)
+            createConnect(pageNum, num)
+            changeRamTitle(pageNum, num)
+            changeConnectTitle(pageNum, num)
+            changePriceOnOtherbtn(pageNum, num)
+            TotalPrice(pageNum, num)
+            changeTitleWords(pageNum)
+        }
+
+        //要清除的骨架內容
+        function clear() {
+            const deviceColorDiv = document.querySelector('.device-color')
+            const deviceAccordionDiv = document.querySelector('#device-accordion')
+            const connectAccordionDiv = document.querySelector('#connect-accordion')
+            const showMoneyDiv = document.querySelector('#showMoney')
+            deviceColorDiv.innerHTML = ""
+            deviceAccordionDiv.innerHTML = ""
+            connectAccordionDiv.innerHTML = ""
+            photodiv.innerHTML = ""
+        }
+        function createImg(index) {
+            const firstImgUrl = appleData[index].firstImg
+            const img = document.createElement('img')
+            img.setAttribute('class', 'img-fluid')
+            img.src = firstImgUrl
+            photodiv.appendChild(img)
+        }
+
+        //生成按鈕
+        function createColorbtn(index) {
+            const appearanceArray = appleData[index].appearance
+            appearanceArray.forEach(item => {
+                const deviceColordiv = document.querySelector('.device-color')
+                const btn = document.createElement('button')
+                const p = document.createElement('p')
+                const span = document.createElement('span')
+
+                const bgc = item.Hex
+                const name = item.Name
+                const img = document.createElement('img')
+
+                btn.classList.add('btn', 'btn-outline-secondary', 'button', 'color')
+                btn.setAttribute('data-bs-toggle', 'collapse')
+                btn.setAttribute('data-bs-target', '#collapseOne')
+
+                btn.setAttribute('id', `${item.Color}`) //給每個按鈕id,並且掛事件
+                span.setAttribute('style', `background-color:${bgc}`) //按鈕裡面圈圈的顏色
+                p.innerText = name
+
+                //幫每個按鈕掛事件並且顯示在最上面的部分
+                btn.addEventListener('click', function () {
+                    const showColorNameDiv = document.querySelector('.displayColor')
+
+                    photodiv.innerHTML = ""
+                    img.setAttribute('src', item.imgSrc)
+                    photodiv.append(img)
+                    showColorNameDiv.innerText = item.Name
+                    showColorNameDiv.classList.add('fw-bold')
+
+                })
+
+                btn.append(span, p)
+
+                deviceColordiv.appendChild(btn)
+
+            })
+        }
+
+        function createDevice(index, n) {
+            const deviceDiv = document.querySelector('.device')
+            const firstSpec = appleData[index].spec[n]
+            const div = document.querySelector('#device-accordion')
+            div.classList.add('d-flex', 'px-4')
+
+            firstSpec.detail.forEach(col => {
+                const button = document.createElement('button')
+                const priceSpan = document.createElement('span')
+                const textSpan = document.createElement('span')
+                button.classList.add('btn', 'btn-outline-secondary', 'button', 'd-flex', 'flex-column', 'justify-content-center', 'align-items-center', 'mb-4')
+
+                priceSpan.innerText = appleData[index].price + col.fit
+                textSpan.innerText = col.name
+                textSpan.classList.add('fs-4')
+
+                button.append(textSpan, priceSpan)
+                button.setAttribute('data-bs-toggle', 'collapse')
+                button.setAttribute('data-bs-target', '#collapseTwo')
+                button.setAttribute('id', `${col.type}`)
+
+                div.append(button)
+            })
+            deviceDiv.append(div)
+        }
+
+        function createConnect(index, n) {
+            const connectDiv = document.querySelector('.connect')
+            const secondSpec = appleData[index].spec[n + 1]
+            const div = document.querySelector('#connect-accordion')
+            div.classList.add('d-flex', 'px-4')
+
+            secondSpec.detail.forEach(col => {
+                const button = document.createElement('button')
+                const priceSpan = document.createElement('span')
+                const textSpan = document.createElement('span')
+                button.classList.add('btn', 'btn-outline-secondary', 'button', 'd-flex', 'flex-column', 'justify-content-center', 'align-items-center', 'mb-4')
+
+                priceSpan.innerText = appleData[index].price + col.fit
+                textSpan.innerText = col.name
+                textSpan.classList.add('fs-6')
+
+                button.append(textSpan, priceSpan)
+                button.setAttribute('data-bs-toggle', 'collapse')
+                button.setAttribute('data-bs-target', '#collapseThree')
+                button.setAttribute('id', `${col.type}`)
+
+                div.append(button)
+            })
+            connectDiv.append(div)
+        }
+
+
+
+        function changeRamTitle(index, n) {
+            const specObj = appleData[index].spec[n]
+            const displayRamDiv = document.querySelector('.displayRam')
+            specObj.detail.forEach(item => {
+                const btn = document.getElementById(item.type)
+                btn.addEventListener('click', function () {
+                    displayRamDiv.innerText = item.name
+                })
+            })
+            displayRamDiv.classList.add('fw-bold')
+        }
+
+        function changeConnectTitle(index, n) {
+            const connectObj = appleData[index].spec[n + 1]
+            const connectDiv = document.querySelector('.displayNet')
+
+            connectObj.detail.forEach(item => {
+                const btn = document.getElementById(item.type)
+                btn.addEventListener('click', function () {
+                    connectDiv.innerText = item.name
+                })
+            })
+            connectDiv.classList.add('fw-bold')
+        }
+
+        function changePriceOnOtherbtn(index, n) {
+            const specObj = appleData[index].spec[n]
+            const connectObj = appleData[index].spec[n + 1]
+
+            //按鈕會互相影響價格所以要掛事件在按鈕上面
+            specObj.detail.forEach(item => {
+                const btn = document.getElementById(item.type)
+                btn.addEventListener('click', function () {
+
+                    let price = item.fit + appleData[0].price
+
+                    connectObj.detail.forEach(col => {
+                        const connectBtn = document.getElementById(col.type)
+                        const span = connectBtn.querySelector('span:nth-child(2)')
+                        price += col.fit
+                        span.innerText = price
+                    })
+                })
+            })
+        }
+
+        function TotalPrice(index, n) {
+            const connectObj = appleData[index].spec[n + 1]
+            const content = document.querySelector('.content')
+            const specObj = appleData[index].spec[n]
+            const div = document.createElement('div')
+            const p = document.createElement('p')
+            const showMoneyDiv = document.querySelector('#showMoney')
+            showMoneyDiv.innerHTML = ""
+            specObj.detail.forEach(item => {
+                const btn = document.getElementById(item.type)
+                btn.addEventListener('click', function () {
+                    p.innerHTML = ""
+
+                })
+            })
+
+
+            connectObj.detail.forEach(item => {
+                const btn = document.getElementById(item.type)
+                btn.addEventListener('click', function () {
+                    p.innerHTML = ""
+                    const span = document.createElement('span')
+                    const total = btn.querySelector('span:nth-child(2)').innerText
+                    span.innerText = `NT$${total}`
+                    p.append(span)
+                })
+            })
+
+            div.classList.add('me-3', 'fw-bold', 'mt-3', 'fs-2', 'text-end')
+            div.append(p)
+            showMoneyDiv.append(div)
+            content.append(showMoneyDiv)
+        }
+
+        function changeTitleWords(index){
+            const p = document.querySelector('.content .buy-item')
+            p.innerText = `購買${appleData[index].productName}`
+            const displayColorDiv = document.querySelector('.displayColor')
+            displayColorDiv.innerText = '外觀'
+            const displayRamDiv = document.querySelector('.displayRam')
+            displayRamDiv.innerText='儲存裝置'
+            const displayConnectDiv = document.querySelector('.displayNet')
+            displayConnectDiv.innerText ='連線能力'
+
+        }
+
+    </script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
