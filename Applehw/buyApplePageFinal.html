@@ -107,10 +107,10 @@
                     <div class="accordion" id="accordionPanelsStayOpenExample">
                         <div class="accordion-item">
                             <button class="accordion-button displayColor" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne" id="">
                                 外觀
                             </button>
-                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
                                 data-bs-parent="#accordionExample">
                                 <div class="text fw-bold">外觀</div>
                                 <div class="accordion-body d-flex flex-wrap device-color">
@@ -120,7 +120,7 @@
                         <div class="accordion-item">
                             <button class="accordion-button collapsed displayRam" type="button"
                                 data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false"
-                                aria-controls="collapseTwo">
+                                aria-controls="collapseTwo" id="panelsStayOpen-headingTwo">
                                 儲存裝置
                             </button>
                             <div id="collapseTwo" class="accordion-collapse collapse device"
@@ -405,7 +405,7 @@
             changeRamTitle(pageNum, num)
             changeConnectTitle(pageNum, num)
             changePriceOnOtherbtn(pageNum, num)
-            TotalPrice(pageNum, num)
+            showTotalPrice(pageNum, num)
             changeTitleWords(pageNum)
         }
 
@@ -440,10 +440,11 @@
                 const bgc = item.Hex
                 const name = item.Name
                 const img = document.createElement('img')
+                img.classList.add('img-fluid')
 
                 btn.classList.add('btn', 'btn-outline-secondary', 'button', 'color')
                 btn.setAttribute('data-bs-toggle', 'collapse')
-                btn.setAttribute('data-bs-target', '#collapseOne')
+                btn.setAttribute('data-bs-target', '#panelsStayOpen-collapseOne')
 
                 btn.setAttribute('id', `${item.Color}`) //給每個按鈕id,並且掛事件
                 span.setAttribute('style', `background-color:${bgc}`) //按鈕裡面圈圈的顏色
@@ -568,7 +569,7 @@
             })
         }
 
-        function TotalPrice(index, n) {
+        function showTotalPrice(index, n) {
             const connectObj = appleData[index].spec[n + 1]
             const content = document.querySelector('.content')
             const specObj = appleData[index].spec[n]
