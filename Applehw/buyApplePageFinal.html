@@ -81,6 +81,11 @@
         img {
             vertical-align: top;
         }
+        [selected="true"]{
+            border: solid 2px #eee;
+            box-shadow: 0 0 5px #000;
+        }
+        
     </style>
 </head>
 
@@ -103,7 +108,7 @@
             </div>
             <div class="col-md-6 col-12">
                 <div class="content">
-                    <p class="fs-1 fw-bold buy-item">購買iPad Air</p>
+                    <p class="fs-1 fw-bold buy-item mt-2">購買iPad Air</p>
                     <div class="accordion" id="accordionPanelsStayOpenExample">
                         <div class="accordion-item">
                             <button class="accordion-button displayColor" type="button" data-bs-toggle="collapse"
@@ -440,11 +445,12 @@
                 const bgc = item.Hex
                 const name = item.Name
                 const img = document.createElement('img')
+                const displayColorBtn = document.querySelector('.displayColor')
+
                 img.classList.add('img-fluid')
 
                 btn.classList.add('btn', 'btn-outline-secondary', 'button', 'color')
-                btn.setAttribute('data-bs-toggle', 'collapse')
-                btn.setAttribute('data-bs-target', '#panelsStayOpen-collapseOne')
+                btn.setAttribute('selected','false')
 
                 btn.setAttribute('id', `${item.Color}`) //給每個按鈕id,並且掛事件
                 span.setAttribute('style', `background-color:${bgc}`) //按鈕裡面圈圈的顏色
@@ -452,13 +458,20 @@
 
                 //幫每個按鈕掛事件並且顯示在最上面的部分
                 btn.addEventListener('click', function () {
-                    const showColorNameDiv = document.querySelector('.displayColor')
-
                     photodiv.innerHTML = ""
+                    const showColorNameDiv = document.querySelector('.displayColor')
+                    const btns = deviceColordiv.querySelectorAll('button')
+                    console.log(btns)
+                    btns.forEach(b=>{
+                        b.setAttribute('selected','false')                      
+                    })
+
                     img.setAttribute('src', item.imgSrc)
                     photodiv.append(img)
                     showColorNameDiv.innerText = item.Name
                     showColorNameDiv.classList.add('fw-bold')
+                    btn.setAttribute('selected','true')
+                    displayColorBtn.click()
 
                 })
 
@@ -480,14 +493,13 @@
                 const priceSpan = document.createElement('span')
                 const textSpan = document.createElement('span')
                 button.classList.add('btn', 'btn-outline-secondary', 'button', 'd-flex', 'flex-column', 'justify-content-center', 'align-items-center', 'mb-4')
+                button.setAttribute('selected','false')
 
                 priceSpan.innerText = appleData[index].price + col.fit
                 textSpan.innerText = col.name
                 textSpan.classList.add('fs-4')
 
                 button.append(textSpan, priceSpan)
-                button.setAttribute('data-bs-toggle', 'collapse')
-                button.setAttribute('data-bs-target', '#collapseTwo')
                 button.setAttribute('id', `${col.type}`)
 
                 div.append(button)
@@ -515,6 +527,7 @@
                 button.setAttribute('data-bs-toggle', 'collapse')
                 button.setAttribute('data-bs-target', '#collapseThree')
                 button.setAttribute('id', `${col.type}`)
+                button.setAttribute('selected','false')
 
                 div.append(button)
             })
@@ -529,7 +542,13 @@
             specObj.detail.forEach(item => {
                 const btn = document.getElementById(item.type)
                 btn.addEventListener('click', function () {
+                    const deviceDiv = document.querySelector('.device')
+                    deviceDiv.querySelectorAll('button').forEach(b=>{
+                        b.setAttribute('selected','false')
+                    })
                     displayRamDiv.innerText = item.name
+                    displayRamDiv.click()
+                    btn.setAttribute('selected','true')
                 })
             })
             displayRamDiv.classList.add('fw-bold')
@@ -542,7 +561,13 @@
             connectObj.detail.forEach(item => {
                 const btn = document.getElementById(item.type)
                 btn.addEventListener('click', function () {
+                    const connect = document.querySelector('.connect')
+                    connect.querySelectorAll('button').forEach(b=>{
+                        b.setAttribute('selected','false')
+                    })
                     connectDiv.innerText = item.name
+                    connectDiv.click()
+                    btn.setAttribute('selected','true')
                 })
             })
             connectDiv.classList.add('fw-bold')
