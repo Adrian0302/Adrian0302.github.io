@@ -90,8 +90,8 @@
                 </div>
                 <div class="modal-body">
                     <!-- <img src="https://fakeimg.pl/300x200/200" class=''> -->
-                    <div class="modal-body-text d-flex flex-wrap justify-content-lg-center">
-                    </div>
+                    <!-- <div class="">
+                    </div> -->
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -147,8 +147,8 @@
             const img = templateCard.querySelector('img')
             const h5 = templateCard.querySelector('h5')
             const modalTitle = document.querySelector('.modal-title')
-            const modalBodyText = document.querySelector('.modal-body-text')
-            const modalBodyImg = document.createElement('img')
+            const modalBodyText = document.createElement('div')
+            modalBodyText.classList.add('modal-body-text','d-flex','flex-wrap','justify-content-center')
             const btn = templateCard.querySelector('.btn')
             const videoBtn = templateCard.querySelector('.btn:nth-child(2)')
             const modalBody = document.querySelector('.modal-body')
@@ -156,10 +156,12 @@
             h5.innerText = `${index + 1} : ${id} - ${name}`
             p.innerText = description
             img.src = `https://cdngarenanow-a.akamaihd.net/webmain/static/pss/lol/items_splash/${id.toLowerCase()}_0.jpg`
-
-
-
+            
+            
+            
             btn.addEventListener('click', function () {
+                modalBody.innerHTML=""
+                const modalBodyImg = document.createElement('img')
                 modalBodyImg.src = `https://cdngarenanow-a.akamaihd.net/webmain/static/pss/lol/items_splash/${id.toLowerCase()}_0.jpg`
                 modalBodyImg.classList.add('img-fluid','modal-body-img')
                 modalTitle.innerText = ` ${id} - ${name}`
