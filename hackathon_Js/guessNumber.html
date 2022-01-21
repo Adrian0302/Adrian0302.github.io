@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <title>終極密碼</title>
+    <style>
+        html,
+        body {
+            height: 100%;
+            background-color: #eee;
+        }
+
+        .btn:focus,
+        .btn:active:focus,
+        .btn.active:focus,
+        .btn.focus,
+        .btn:active.focus,
+        .btn.active.focus {
+            outline: none;
+            box-shadow: none;
+        }
+
+        #startBtn {
+            font-size: 25px;
+            width: 50%;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            transition: 0.3s;
+            border: none
+        }
+
+        #startBtn:hover {
+            background-color: rgb(155, 120, 120);
+        }
+
+        .wrap {
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 10%;
+            aspect-ratio: 2/1;
+        }
+
+        [data-with-border="true"] {
+            background-color: rgba(255, 170, 0, 0.1);
+            border-radius: 12px;
+            box-shadow: 10px 10px 10px #aaa;
+        }
+
+        input {
+            margin-top: 10%;
+            width: 50%;
+            aspect-ratio: 4/1;
+            padding-left: 10px;
+            background-color: transparent;
+            border: solid 1px #aaa;
+            font-size: 22px;
+            border-radius: 12px;
+
+        }
+
+        input:focus {
+            outline: none;
+            box-shadow: none;
+        }
+
+        .guessArea {
+            height: 100%;
+        }
+
+        .wrap p {
+            font-size: 50px;
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+
+        .wrap span {
+            margin-bottom: auto;
+        }
+
+        .guessArea .btn {
+            width: 20%;
+            aspect-ratio: 1/1;
+
+        }
+
+        .btns {
+            width: 60%;
+        }
+
+        .mx-7 {
+            margin: 0 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap w-50 d-flex" data-with-border="false">
+        <button id="startBtn"
+            class="btn btn-dark d-flex flex-column justify-content-center align-items-center text-center mx-auto">
+            <p>開始遊戲</p>
+            <span>Start Game!</span>
+        </button>
+        <!-- <div class="guessArea d-flex flex-column w-50">
+            裝按鈕和input的地方
+        </div> -->
+        <!-- <input type="text"> -->
+        <!-- <p class="guessArea d-inline-block">0~100</p> -->
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+
+    <script>
+        const startBtn = document.querySelector('#startBtn')
+        const allBtn = ['0', '1', '2', '3', '4', '5', '6', '7', '8', 'X', '9', 'V']
+        const colors = ["skyblue", "bisque", "gray", "palevioletred", "orange", "pink", "salmon", "black","red","firebrick","darkgoldenrod","teal"]
+        const wrapArea = document.querySelector('.wrap')
+        let min = 0
+        let max = 100
+        let answer
+        let guess
+        let timeoutId
+
+
+
+        window.onload = function () {
+            Start()          
+            startBtn.onclick = function () {
+                answer = getRandomNum()
+                initialize()
+                console.log(answer)
+            }
+        }
+
+        function Start() {
+            timeoutId = setInterval(changeColor,1000)
+
+        }
+
+        function getRandom(min, max) {
+            return Math.floor(Math.random() * (max - min) + min)
+        }
+        function changeColor(){
+            let random = getRandom(0,11)
+            startBtn.style.backgroundColor = colors[random]
+
+        }
+        function getRandomNum() {
+            return Math.floor(Math.random() * (100 - 1) + 1)
+        }
+
+        function initialize() {
+            const guessArea = document.createElement('div')
+            const input = document.createElement('input')
+            const btnsDiv = document.createElement('div')
+            const p = document.createElement('p')
+
+            wrapArea.innerHTML = ""
+            wrapArea.setAttribute('data-with-border', 'true')
+            btnsDiv.classList.add('btns', 'd-flex', 'flex-wrap', 'justify-content-center')
+            input.type = 'text'
+            guessArea.classList.add('guessArea', 'w-50', 'd-flex', 'flex-column', 'align-items-center')
+            p.classList.add('w-50', 'text-center')
+            p.innerText = `${min}～${max}`
+
+            allBtn.forEach(number => {
+                const btn = document.createElement('button')
+                btn.innerText = number
+                btn.classList.add('mx-7', 'my-2')
+                if (number == 'X') {
+                    btn.setAttribute('id', 'deleteBtn')
+                    btn.classList.add('btn', 'btn-danger')
+                    btn.onclick = function () {
+                        input.value = ""
+                    }
+                }
+                else if (number == 'V') {
+                    btn.setAttribute('id', 'guessBtn')
+                    btn.classList.add('btn', 'btn-success')
+                    btn.onclick = function () {
+                        //判斷數字
+                        showTitle()
+                    }
+                }
+                else {
+                    btn.classList.add('number', 'btn', 'btn-dark')
+                    btn.onclick = function () {
+                        input.value += number
+                    }
+                }
+
+                btnsDiv.append(btn)
+            })
+            guessArea.append(input, btnsDiv)
+            wrapArea.append(guessArea, p)
+
+            function showTitle() {
+                guess = parseInt(input.value)
+
+                if (guess == null || isNaN(guess) || guess % 1 != 0 || min >= guess || max <= guess) {
+                    alert('請重新輸入')
+                    input.value = ""
+                }
+                else {
+                    if (guess > answer) {
+                        max = guess
+                        input.value = ""
+                        p.innerText = `${min}～${max}`
+                    }
+                    else if (guess < answer) {
+                        min = guess
+                        input.value = ""
+                        p.innerText = `${min}～${max}`
+                    }
+                    else if (guess == answer) {
+                        wrapArea.classList.add('bg-dark-50','text-center')
+                        alert('猜對ㄌ！')
+                        input.value = ""
+                        p.innerText = `${answer}`
+
+                    }
+                }
+                
+            }
+        }
+
+
+
+
+    </script>
+
+</body>
+
+</html>

@@ -127,7 +127,7 @@
 
                 let _card = getCard(hero.name, hero.id, hero.blurb, index, statsArray)
                 _row.append(_card)
-                console.log(statsArray)
+                
 
 
             })
@@ -152,7 +152,7 @@
             const btn = templateCard.querySelector('.btn')
             const videoBtn = templateCard.querySelector('.btn:nth-child(2)')
             const modalBody = document.querySelector('.modal-body')
-            console.log(videoBtn)
+            
             h5.innerText = `${index + 1} : ${id} - ${name}`
             p.innerText = description
             img.src = `https://cdngarenanow-a.akamaihd.net/webmain/static/pss/lol/items_splash/${id.toLowerCase()}_0.jpg`
@@ -169,7 +169,7 @@
                 stats.forEach(prop => {
                     const modalBodyTextP = document.createElement('p')
                     modalBodyTextP.innerText = prop
-                    console.log(prop)
+                    
 
                     modalBodyText.append(modalBodyTextP)
                 })
