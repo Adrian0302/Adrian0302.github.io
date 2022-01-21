@@ -114,6 +114,7 @@
         <!-- <input type="text"> -->
         <!-- <p class="guessArea d-inline-block">0~100</p> -->
     </div>
+    <div class="container w-50 py-3 text-end"></div>
 
 
 
@@ -126,6 +127,7 @@
         const allBtn = ['0', '1', '2', '3', '4', '5', '6', '7', '8', 'X', '9', 'V']
         const colors = ["skyblue", "bisque", "gray", "palevioletred", "orange", "pink", "salmon", "black","red","firebrick","darkgoldenrod","teal"]
         const wrapArea = document.querySelector('.wrap')
+        const containerDiv = document.querySelector('.container')
         let min = 0
         let max = 100
         let answer
@@ -165,14 +167,22 @@
             const input = document.createElement('input')
             const btnsDiv = document.createElement('div')
             const p = document.createElement('p')
-
+            const btn = document.createElement('button')
+            
             wrapArea.innerHTML = ""
+            containerDiv.innerHTML=""
             wrapArea.setAttribute('data-with-border', 'true')
             btnsDiv.classList.add('btns', 'd-flex', 'flex-wrap', 'justify-content-center')
             input.type = 'text'
             guessArea.classList.add('guessArea', 'w-50', 'd-flex', 'flex-column', 'align-items-center')
             p.classList.add('w-50', 'text-center')
             p.innerText = `${min}～${max}`
+            btn.innerText = '重新開始'
+            btn.classList.add('btn','btn-outline-dark','ms-auto','d-inline-block')
+            btn.onclick = function(){
+                answer = getRandomNum()
+                initialize()
+            }
 
             allBtn.forEach(number => {
                 const btn = document.createElement('button')
@@ -204,6 +214,7 @@
             })
             guessArea.append(input, btnsDiv)
             wrapArea.append(guessArea, p)
+            containerDiv.append(btn)
 
             function showTitle() {
                 guess = parseInt(input.value)
@@ -227,7 +238,6 @@
                         wrapArea.classList.add('bg-dark-50','text-center')
                         alert('猜對ㄌ！')
                         input.value = ""
-                        p.innerText = `${answer}`
 
                     }
                 }
