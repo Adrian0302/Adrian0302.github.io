@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+        integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <title>行4曆</title>
+    <style>
+        body {
+            position: relative;
+            background-color: #ccc;
+        }
+
+        .btn:focus,
+        .btn:active:focus,
+        .btn.active:focus,
+        .btn.focus,
+        .btn:active.focus,
+        .btn.active.focus {
+            outline: none;
+            box-shadow: none;
+        }
+
+        .container {
+            height: 100vh;
+        }
+
+        .box {
+            width: 90%;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            animation: floating 2s infinite;
+            border: solid 2px slategrey;
+
+        }
+
+        .today-date {
+            font-size: 72px;
+        }
+
+        .bg-mark {
+            bottom: 0;
+            right: 0;
+            font-size: 280px;
+            font-family: monospace;
+            color: #aaa;
+            opacity: 0.4;
+            z-index: -1;
+        }
+
+        tbody {
+            height: 600px;
+        }
+
+        @keyframes floating {
+            0% {
+                transform: translateY(0px);
+                background-color: slategrey;
+            }
+
+            50% {
+                transform: translateY(15px);
+                background-color: #ccc;
+            }
+
+            100% {
+                transform: translateY(0px);
+                background-color: slategrey;
+            }
+        }
+
+        li {
+            list-style: none;
+            width: 40%;
+            text-align: center;
+            margin-left: auto;
+        }
+
+        table {
+            table-layout: fixed;
+            word-break: break-all;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-mark position-absolute">Month</div>
+    <div class="container d-flex align-items-center p-5">
+        <div class="box d-flex flex-column justify-content-center w-25 text-center mx-4">
+            <p class="today-date p-0 mt-auto"></p>
+            <span class="week-of-day mb-auto fs-3 fw-bold"></span>
+        </div>
+
+        <div class="calender w-75">
+            <div class="calender-title d-flex align-items-center justify-content-around">
+                <button class="btn btn-outline-dark border-0 previous"><i class="far fa-hand-point-left"></i></button>
+                <h1 class="calender-year-month">Year - Month</h1>
+                <button class="btn btn-outline-dark border-0 next"><i class="far fa-hand-point-right"></i></button>
+            </div>
+            <table class="table text-center table-active">
+                <thead>
+                    <tr>
+                        <th>日</th>
+                        <th>一</th>
+                        <th>二</th>
+                        <th>三</th>
+                        <th>四</th>
+                        <th>五</th>
+                        <th>六</th>
+                    </tr>
+                </thead>
+                <tbody class="text-end">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <!-- 兩個Modal要給不同的id -->
+    <!-- add Modal -->
+    <div id="add-modal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">新增</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input id="add-date" type="text">
+                    <input id="add-title" type="text">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="addTodoItem()">新增</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- edit Modal -->
+    <div id="edit-modal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">新增</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input id="edit-date" type="text">
+                    <input id="edit-title" type="text">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                        onclick="deleteTodoItem()">刪除</button>
+                    <button type="button" class="btn btn-primary" onclick="editTodoItem()">編輯</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+
+    <script>
+
+        //DOM
+        const table = document.querySelector('table')
+        const dateArea = document.querySelector('tbody')
+        const bgMark = document.querySelector('.bg-mark')
+        const todayDate = document.querySelector('.today-date')
+        const weekOfDay = document.querySelector('.week-of-day')
+        const previousBtn = document.querySelector('.previous')
+        const nextBtn = document.querySelector('.next')
+        const calenderTitle = document.querySelector('.calender-year-month')
+
+        const addModal = document.querySelector('#add-modal')
+        const editModal = document.querySelector('#edit-modal')
+        const addDateInput = document.querySelector('#add-date')
+        const addTitleInput = document.querySelector('#add-title')
+        const editDateInput = document.querySelector('#edit-date')
+        const editTitleInput = document.querySelector('#edit-title')
+
+
+        //let
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', "Dec"]
+        const weekDays = ['日', '一', '二', '三', '四', '五', '六']
+        const today = new Date()  //今天
+        let month = today.getMonth() //這個月
+        let year = today.getFullYear() // 今年
+        let date = today.getDate() //那一天
+
+        let currentTodoIndex;
+
+        window.onload = function () {
+            init()
+
+            previousBtn.onclick = function () {
+                if (month == 0) {
+                    year--
+                    month = 11
+                } else {
+                    month--
+                }
+                init()
+            }
+            nextBtn.onclick = function () {
+                if (month == 11) {
+                    year++
+                    month = 0
+                } else {
+                    month++
+                }
+                init()
+            }
+        }
+        function init() {
+            dateArea.innerHTML = ""
+            let firstDay = new Date(year, month, 1).getDay() //第一天是禮拜幾
+            let dayOfMonth = new Date(year, month + 1, 0).getDate() //下個月的第0天是上個月的最後一天,getDate取得日期
+            let weeks = Math.ceil((firstDay + dayOfMonth) / 7)
+            let day = 1;
+            //總共需要幾個tr -> 第一天和這個月的最後一天相加/7就是我這個月涵蓋範圍的週數
+            calenderTitle.innerText = `${year}年  ${month + 1}月`
+            bgMark.innerText = months[month]
+            todayDate.innerText = today.getDate()
+            weekOfDay.innerText = `星期${weekDays[today.getDay()]}`
+
+            for (let week = 0; week < weeks; week++) {
+                let tr = document.createElement('tr')
+
+                for (let col = 0; col < 7; col++) {
+                    let td = document.createElement('td')
+                    if (week == 0 && col < firstDay) {
+                        //上個月
+                        td.innerText = ''
+                    }
+                    else {
+                        if (day <= dayOfMonth) {
+                            td.innerText = day
+
+                            //#region 渲染行程
+                            if (localStorage.getItem(`${year}-${month + 1}-${day}`) != null) {
+                                //如果當日行程裡面有東西的話,我就新增行程到畫面之中
+                                let ul = document.createElement('ul')
+                                ul.classList.add('p-0', 'd-flex', 'flex-column')
+
+                                let todoList = JSON.parse(localStorage.getItem(`${year}-${month + 1}-${day}`))
+
+                                todoList.forEach((item, index) => {
+                                    let li = document.createElement('li')
+                                    li.innerText = item.title   //代辦事項裡面的資料結構
+                                    li.classList.add('badge', 'bg-primary')
+                                    li.onclick = function (event) {
+
+                                        //點擊li的時候會看到 編輯的Modal打開 ->裡面顯示的是點擊的日期的input,也就是那一天的年月日,另一個input是現在foreach當下item的內容,因為有兩個Modal 所以內容會分開指派
+                                        bootstrap.Modal.getOrCreateInstance(editModal).show()
+                                        editDateInput.value = `${year}-${month + 1}-${td.childNodes[0].data}`
+                                        editTitleInput.value = item.title //編輯行程打開來會有想修改的行程內容
+                                        currentTodoIndex = index
+                                        event.stopPropagation()
+
+                                    }
+
+                                    ul.appendChild(li)
+                                })
+
+                                td.appendChild(ul)
+
+                            }
+                            //#endregion 渲染行程
+                        }
+                        day++
+                        td.onclick = function () {
+                            bootstrap.Modal.getOrCreateInstance(addModal).show()  //把新增行程的Modal打開
+                            addDateInput.value = `${year}-${month + 1}-${td.childNodes[0].data}`
+                        }
+                    }
+                    td.classList.add('border', 'border-1')
+                    tr.append(td)
+                }
+                dateArea.append(tr)
+            }
+        }
+
+
+        function addTodoItem() {
+            //新增行程按鈕->必須先取得使用者輸入的內容,再將它們裝進物件裡面
+            let date = addDateInput.value
+            let todoItem = addTitleInput.value
+
+            let todoObj = {
+                title: todoItem
+            }
+            //一天可能有很多行程
+            let todoList = []
+
+
+            if (localStorage.getItem(date) === null) {
+                //當天沒行程
+                todoList.push(todoObj)
+            } else {
+                //那天有行程
+                todoList = JSON.parse(localStorage.getItem(date))
+                todoList.push(todoObj)
+            }
+            localStorage.setItem(date, JSON.stringify(todoList))
+            bootstrap.Modal.getOrCreateInstance(addModal).hide()
+
+            init()
+        }
+
+        //1刪除
+        function deleteTodoItem() {
+            let date = editDateInput.value
+            let todoItem = editTitleInput.value
+
+            let todoList = JSON.parse(localStorage.getItem(date))
+            todoList.splice(currentTodoIndex, 1)
+
+            localStorage.setItem(date, JSON.stringify(todoList))
+            bootstrap.Modal.getOrCreateInstance(editModal).hide()
+            init()
+
+
+        }
+
+        //編輯
+        function editTodoItem() {
+            let date = editDateInput.value
+            let todoItem = editTitleInput.value
+
+            let todoList = JSON.parse(localStorage.getItem(date))
+
+            todoList[currentTodoIndex] = { title: todoItem }
+
+
+            localStorage.setItem(date, JSON.stringify(todoList))
+            bootstrap.Modal.getOrCreateInstance(editModal).hide()
+            init()
+        }
+
+
+    </script>
+
+</body>
+
+</html>
