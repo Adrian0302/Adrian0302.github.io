@@ -134,7 +134,6 @@
             startBtn.onclick = function () {
                 answer = getRandomNum()
                 initialize()
-                console.log(answer)
             }
         }
 
@@ -173,8 +172,12 @@
             btn.innerText = '重新開始'
             btn.classList.add('btn','btn-outline-dark','ms-auto','d-inline-block')
             btn.onclick = function(){
+                min=0
+                max=100
                 answer = getRandomNum()
                 initialize()
+                p.innerText= `${min}～${max}`
+                
             }
 
             allBtn.forEach(number => {
