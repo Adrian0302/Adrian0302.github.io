@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <style>
+        body{
+            background-color: #222;
+            width: 100%;
+            height: 100%;
+        }
+        .wrap {
+            aspect-ratio: 1;
+            width: 30%;
+            border-radius: 10px;
+            box-shadow: 10px 10px #bbb;
+            background-color: #444;
+        }
+
+        input:focus {
+            outline: none;
+        }
+
+        input {
+            width: 100%;
+            height: 45px;
+            padding: 20px;
+            text-align: end;
+            border-radius: 10px;
+            box-shadow: inset 5px 5px 0 #000;
+        }
+
+        .buttons {
+            width: 100%;
+        }
+
+        .btn:focus,
+        .btn:active:focus,
+        .btn.active:focus,
+        .btn.focus,
+        .btn:active.focus,
+        .btn.active.focus {
+            outline: none;
+            box-shadow: none;
+        }
+        .btn{
+            width: 20%;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            box-shadow: 10px 10px 0 #000;
+            transition: 0.3s;
+            margin: 10px 5px 0px 5px ;
+            font-size: 18px;
+            
+        }
+        .btn-orange{
+            color: #fff;
+            background-color: #fa0;
+            border-color: #fa0;
+        }
+        #equal{
+            aspect-ratio: 3/1;
+            width: 42%;
+            border-radius: 12px;
+            margin-right: 12px;
+        }
+    </style>
+
+    <title>計算G</title>
+</head>
+
+<body>
+    <div class="container d-flex p-5 justify-content-center">
+        <div class="wrap p-3 text-end">
+            <input type="text">
+            <div class="buttons my-2 text-center">
+                <button class="num btn btn-secondary">1</button>
+                <button class="num btn btn-secondary">2</button>
+                <button class="num btn btn-secondary">3</button>
+                <button class="operation btn btn-danger">+</button>
+                <button class="num btn btn-secondary">4</button>
+                <button class="num btn btn-secondary">5</button>
+                <button class="num btn btn-secondary">6</button>
+                <button class="operation btn btn-danger">-</button>
+                <button class="num btn btn-secondary">7</button>
+                <button class="num btn btn-secondary">8</button>
+                <button class="num btn btn-secondary">9</button>
+                <button class="operation btn btn-danger">x</button>
+                <button class="btn btn-danger" id="delete">C</button>
+                <button class="num btn btn-secondary">0</button>
+                <button class="num btn btn-secondary">.</button>
+                <button class="operation btn btn-danger">÷</button>
+            </div>
+            <button class="btn btn-danger" id="equal"> = </button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+
+    <script>
+        const numbersBtns = document.querySelectorAll('.num')
+        const operationBtns = document.querySelectorAll('.operation')
+        const deleteBtn = document.querySelector('#delete')
+        const equalBtn = document.querySelector('#equal')
+        const input = document.querySelector('input')
+        let firstNum,secondNum
+        let currentOperator;
+
+        const calculate = [
+            {operator:'+',func:(a,b)=>a+b},
+            {operator:'-',func:(a,b)=>a-b},
+            {operator:'x',func:(a,b)=>a*b},
+            {operator:'÷',func:(a,b)=>a/b},
+        ]
+
+        window.onload = function(){
+            
+            deleteBtn.onclick = function(){
+                input.value=""
+            }
+            numbersBtns.forEach(numBtn=>{
+                numBtn.onclick = function(){
+                    input.value += numBtn.innerText
+                }
+            })
+
+            operationBtns.forEach(operationBtn=>{
+                operationBtn.onclick = function(){
+                    currentOperator = operationBtn.innerText
+                    console.log(currentOperator)
+                    firstNum = parseFloat(input.value)
+                    input.value=""
+                    
+                }
+            })
+
+            equalBtn.onclick = function(){
+                secondNum = parseFloat(input.value)
+                const calculateMethod= calculate.filter(x=>x.operator==currentOperator)
+                input.value = calculateMethod[0].func(firstNum,secondNum)
+            }
+        }
+    </script>
+</body>
+
+</html>
