@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <select name="city" id="cityOption"></select>
+    <select name="district" id="districtOption"></select>
+
+    <input type="submit" value="提交資料" onclick="submitData()">
+
+
+    <script>
+        const url = 'https://raw.githubusercontent.com/apprunner/FileStorage/master/TaiwanAddress.json'
+        const citySelect = document.querySelector('#cityOption')
+        const districtSelect = document.querySelector('#districtOption')
+        const input = document.querySelector('input')
+        let cityArr = [], districtArr = []
+
+        window.onload = function () {
+            fetchJSON(url)
+            citySelect.onchange = function () {
+                districtSelect.innerHTML = ''
+                districtArr = []
+                
+                if(citySelect.value==''){
+                    districtArr = ['']
+                }else{
+                    let step1 = cityArr.find(x => x.CityName == citySelect.value)
+                    //let step1 = cityArr.filter(x=>x.CityName==citySelect.value)[0] ->filter回傳是陣列所以要告訴他是第0項
+                    let step2 = step1.AreaList.map(x => `${x.ZipCode}-${x.AreaName}`)
+                    //let step2_1 = step1.AreaList.map((x=>({ZipCode:x.ZipCode,AreaName:x.AreaName}))
+                    
+                    districtArr = [''].concat(step2)
+                    districtArr.forEach(district => {
+                        const option = document.createElement('option')
+                        option.innerText = district == '' ? '---請選擇區域---' : district
+                        option.value = district
+    
+                        districtSelect.append(option)
+                    })
+                }
+                checkUI()
+                
+            }
+
+            ///////切換的時候也要檢查要不要打開!!!!!!
+            districtSelect.onchange = function () {
+                checkUI()
+            }
+            
+
+        }
+
+        function submitData(){
+            alert(`${citySelect.value},${districtSelect.value}`)
+        }
+
+
+        function fetchJSON(urlPath) {
+            fetch(urlPath)
+                .then(response => response.json())
+                .then(result => {
+                    cityArr = [{ CityName: '', AreaList: '' }].concat(result)
+                    
+                    cityArr.forEach(item => {
+                        const option = document.createElement('option')
+                        option.innerText = item.CityName == '' ? '---請選擇縣市---' : item.CityName
+                        option.value = item.CityName
+                        citySelect.append(option)
+                    });
+                    
+
+                })
+
+        }
+
+        function checkUI() {
+            if (citySelect.value == '') {
+                districtSelect.setAttribute('disabled', 'true')
+            }
+            else{
+                districtSelect.removeAttribute('disabled')
+        
+            }
+            if(districtSelect.value==''){
+                input.setAttribute('disabled', 'true')
+            }
+            else{
+                input.removeAttribute('disabled')
+            }
+
+        }
+
+        
+
+
+
+
+
+    </script>
+</body>
+
+</html>
