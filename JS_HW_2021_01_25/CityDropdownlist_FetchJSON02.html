@@ -29,7 +29,7 @@
                 districtArr = []
                 
                 if(citySelect.value==''){
-                    districtArr = ['']
+                    districtArr = ['']  //如果左邊是請選擇縣市,右邊就給她空的陣列不然底下會報錯
                 }else{
                     let step1 = cityArr.find(x => x.CityName == citySelect.value)
                     //let step1 = cityArr.filter(x=>x.CityName==citySelect.value)[0] ->filter回傳是陣列所以要告訴他是第0項
@@ -73,6 +73,7 @@
                         option.innerText = item.CityName == '' ? '---請選擇縣市---' : item.CityName
                         option.value = item.CityName
                         citySelect.append(option)
+                        checkUI()
                     });
                     
 
