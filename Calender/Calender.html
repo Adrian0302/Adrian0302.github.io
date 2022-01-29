@@ -20,7 +20,11 @@
         .btn.active:focus,
         .btn.focus,
         .btn:active.focus,
-        .btn.active.focus input:focus {
+        .btn.active.focus,
+        input:focus,
+        input:active,
+        textarea:focus,
+        textarea:active {
             outline: none;
             box-shadow: none;
         }
@@ -28,7 +32,17 @@
         .green-bg {
             background-color: #a7c9b1 !important;
         }
+        .dark-bg{
+            background-color: #cad2c5 !important;
+        }
 
+        .primary-bg{
+            background-color: #354f52 !important;
+            transition: 0.2s
+        }
+        .primary-bg:hover{
+            background-color: #4c7377 !important;
+        }
         .container {
             background-color: #d3f2db;
             border: solid 1px black;
@@ -66,7 +80,15 @@
         tbody {
             height: 400px;
         }
-
+        .bg-modal-body{
+            background-color: rgba(202, 210, 197,0.9)  !important;
+        }
+        .btn-delete{
+            background-color: #800016 !important;
+        }
+        .btn-delete:hover{
+            background-color:  #99011a !important;
+        }
         ul {
             margin-bottom: 0;
             padding: 0;
@@ -94,7 +116,11 @@
             background-color: #b2bfb6;
             border-color: #b2bfb6;
         }
-
+        input,textarea{
+            border: solid 1px #354f52 !important;
+            border-radius: 5px;
+            background-color: transparent;
+        }
         @media screen and (max-width: 767px) {
 
             #editModal,
@@ -172,11 +198,11 @@
     <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header green-bg">
+                <div class="modal-header dark-bg">
                     <h5 class="modal-title" id="exampleModalLabel">新增</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="add-modal modal-body green-bg">
+                <div class="add-modal modal-body bg-modal-body">
                     <div class="row flex-column">
                         <div class="col-12">
                             <p class="p-0 py-2 mb-0">日期</p>
@@ -194,9 +220,9 @@
 
                     </div>
                 </div>
-                <div class="add-modal modal-footer green-bg">
+                <div class="add-modal modal-footer dark-bg">
                     <button type="button" class="btn btn-secondary btn-grey" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-success" onclick=addTodoItem()>新增</button>
+                    <button type="button" class="btn primary-bg text-white" onclick=addTodoItem()>新增</button>
                 </div>
             </div>
         </div>
@@ -206,11 +232,11 @@
     <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header dark-bg">
                     <h5 class="modal-title" id="exampleModalLabel">編輯</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="edit-modal modal-body">
+                <div class="edit-modal modal-body bg-modal-body">
                     <div class="row flex-column">
                         <div class="col-12">
                             <p class="p-0 py-2 mb-0">日期</p>
@@ -228,10 +254,10 @@
 
                     </div>
                 </div>
-                <div class="edit-modal modal-footer">
+                <div class="edit-modal modal-footer dark-bg">
                     <button type="button" class="btn btn-secondary btn-grey" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-danger" onclick=deleteTodoItem()>刪除</button>
-                    <button type="button" class="btn btn-success" onclick=editTodoItem()>修改</button>
+                    <button type="button" class="btn btn-delete text-white" onclick=deleteTodoItem()>刪除</button>
+                    <button type="button" class="btn primary-bg text-white" onclick=editTodoItem()>修改</button>
                 </div>
             </div>
         </div>
