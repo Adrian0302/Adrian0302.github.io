@@ -1,0 +1,823 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+        integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+    <link rel="stylesheet" href="maryShelly.css">
+
+    <title>MaryShelly</title>
+</head>
+
+<body>
+    <div class="container mt-5" id="container"></div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+
+    <script>
+        //DOM
+        const container = document.getElementById('container')
+
+        //let 食物資料的陣列
+        let foodData = [
+            {
+                id: 1,
+                food: 'pizza',
+                sentence: '有朋友的話可以一起吃pizza :D',
+                icon: 'fas fa-pizza-slice',
+                iconQuestion: 'fas fa-question-circle i-dark'
+            },
+            {
+                id: 2,
+                food: 'hamburger',
+                sentence: '今天午餐就吃  Mos Burger!怎麼樣',
+                icon: 'fas fa-hamburger',
+                iconQuestion: 'far fa-question-circle i-light'
+            },
+            {
+                id: 3,
+                food: 'ice-cream',
+                sentence: '今天天氣很熱的話 就吃冰淇淋～',
+                icon: 'fas fa-ice-cream',
+                iconQuestion: 'fas fa-question-circle i-dark'
+            },
+            {
+                id: 4,
+                food: 'walk',
+                sentence: '走去外面隨便看看有啥好吃的8',
+                icon: 'fas fa-shoe-prints',
+                iconQuestion: 'far fa-question-circle i-light'
+            },
+            {
+                id: 5,
+                food: 'chicken',
+                sentence: '雞腿Bang當 Bang利商店的很不錯ㄛ',
+                icon: 'fas fa-drumstick-bite',
+                iconQuestion: 'fas fa-question-circle i-dark'
+            },
+            {
+                id: 6,
+                food: 'fork',
+                sentence: '附近好吃的西餐店怎ㄇ樣',
+                icon: 'fas fa-utensils',
+                iconQuestion: 'far fa-question-circle i-light'
+            },
+            {
+                id: 7,
+                food: 'chicken',
+                sentence: '偷吃旁邊同學的雞腿bang當 !',
+                icon: 'fas fa-drumstick-bite',
+                iconQuestion: 'fas fa-question-circle i-dark'
+            },
+            {
+                id: 8,
+                food: 'chicken',
+                sentence: '吃同事吃過的雞腿 ',
+                icon: 'fas fa-drumstick-bite',
+                iconQuestion: 'far fa-question-circle i-light'
+            },
+            {
+                id: 9,
+                food: 'fish',
+                sentence: '吃魚吃魚 年年有魚 黃河蜀魚館',
+                icon: 'fas fa-fish',
+                iconQuestion: 'fas fa-question-circle i-dark'
+            },
+            {
+                id: 10,
+                food: 'cheese',
+                sentence: '人比人氣死人 蛋糕比蛋糕! 就吃起司蛋糕',
+                icon: 'fas fa-cheese',
+                iconQuestion: 'far fa-question-circle i-light'
+            },
+            {
+                id: 11,
+                food: 'cookie',
+                sentence: '吃點小餅乾吧',
+                icon: 'fas fa-cookie',
+                iconQuestion: 'fas fa-question-circle i-dark'
+            },
+            {
+                id: 12,
+                food: 'apple',
+                sentence: '一天一天蘋果 快樂遠離我',
+                icon: 'fas fa-apple-alt',
+                iconQuestion: 'far fa-question-circle i-light'
+            },
+            {
+                id: 13,
+                food: 'pizza',
+                sentence: '今天中午就吃必勝客 ㄅ',
+                icon: 'fas fa-pizza-slice',
+                iconQuestion: 'fas fa-question-circle i-dark'
+            },
+            {
+                id: 14,
+                food: 'pizza',
+                sentence: '達美樂 打了沒! 2882-5252',
+                icon: 'fas fa-pizza-slice',
+                iconQuestion: 'far fa-question-circle i-light'
+            },
+            {
+                id: 15,
+                food: 'pizza',
+                sentence: '蘇阿姨比薩屋 ! 阿姨的比薩敲好吃',
+                icon: 'fas fa-pizza-slice',
+                iconQuestion: 'fas fa-question-circle i-dark'
+            },
+            {
+                id: 16,
+                food: 'hamburger',
+                sentence: '今天來點 麥當勞的勁辣雞腿堡!',
+                icon: 'fas fa-hamburger',
+                iconQuestion: 'far fa-question-circle i-light'
+            },
+            {
+                id: 17,
+                food: 'hamburger',
+                sentence: 'Subway! Subway! 我們要吃Subway!',
+                icon: 'fas fa-hamburger',
+                iconQuestion: 'fas fa-question-circle i-dark'
+            },
+            {
+                id: 18,
+                food: 'carrot',
+                sentence: '是不是大魚大肉吃了很多天! 來點健康餐盒怎ㄇyoung',
+                icon: 'fas fa-carrot',
+                iconQuestion: 'far fa-question-circle i-light'
+            },
+            {
+                id: 19,
+                food: 'carrot',
+                sentence: '不是初一十五也是可以吃個素食',
+                icon: 'fas fa-seedling',
+                iconQuestion: 'fas fa-question-circle i-dark'
+            },
+            {
+                id: 20,
+                food: 'walk',
+                sentence: '走去附近最近的牛肉麵店吃飯吧',
+                icon: 'fas fa-shoe-prints',
+                iconQuestion: 'far fa-question-circle i-light'
+            },
+            {
+                id: 21,
+                food: 'coffee',
+                sentence: '先喝杯咖啡吧 是不是還沒到吃飯的時間!',
+                icon: 'fas fa-coffee',
+                iconQuestion: 'fas fa-question-circle i-dark'
+            },
+            {
+                id: 22,
+                food: 'cake',
+                sentence: '今天或許過得很苦,但我們今天可樂 買個蛋糕吧!',
+                icon: 'fas fa-birthday-cake',
+                iconQuestion: 'far fa-question-circle i-light'
+            },
+            {
+                id: 23,
+                food: 'walk',
+                sentence: '今天中午就吃拉麵ㄅ! ',
+                icon: 'fas fa-shoe-prints',
+                iconQuestion: 'fas fa-question-circle i-dark'
+            },
+            {
+                id: 24,
+                food: 'pizza',
+                sentence: '有朋友的話可以一起吃pizza :D',
+                icon: 'fas fa-pizza-slice',
+                iconQuestion: 'far fa-question-circle i-light'
+            },
+            {
+                id: 25,
+                food: 'hamburger',
+                sentence: '今天午餐就吃  Mos Burger!怎麼樣',
+                icon: 'fas fa-hamburger',
+                iconQuestion: 'fas fa-question-circle i-dark'
+            },
+            {
+                id: 26,
+                food: 'ice-cream',
+                sentence: '今天天氣很熱的話 就吃冰淇淋～',
+                icon: 'fas fa-ice-cream',
+                iconQuestion: 'far fa-question-circle i-light'
+            },
+            {
+                id: 27,
+                food: 'walk',
+                sentence: '走去外面隨便看看有啥好吃的8',
+                icon: 'fas fa-shoe-prints',
+                iconQuestion: 'fas fa-question-circle i-dark'
+            },
+            {
+                id: 28,
+                food: 'chicken',
+                sentence: '雞腿Bang當 Bang利商店的很不錯ㄛ',
+                icon: 'fas fa-drumstick-bite',
+                iconQuestion: 'far fa-question-circle i-light'
+            },
+            {
+                id: 29,
+                food: 'fork',
+                sentence: '附近好吃的西餐店怎ㄇ樣',
+                icon: 'fas fa-utensils',
+                iconQuestion: 'fas fa-question-circle i-dark'
+            },
+            {
+                id: 30,
+                food: 'chicken',
+                sentence: '偷吃旁邊同學的雞腿bang當 !',
+                icon: 'fas fa-drumstick-bite',
+                iconQuestion: 'far fa-question-circle i-light'
+            },
+            {
+                id: 31,
+                food: 'chicken',
+                sentence: '吃同事吃過的雞腿 ',
+                icon: 'fas fa-drumstick-bite',
+                iconQuestion: 'fas fa-question-circle i-dark'
+            },
+            {
+                id: 32,
+                food: 'fish',
+                sentence: '吃魚吃魚 年年有魚 黃河蜀魚館',
+                icon: 'fas fa-fish',
+                iconQuestion: 'far fa-question-circle i-light'
+            },
+            {
+                id: 33,
+                food: 'cheese',
+                sentence: '人比人氣死人 蛋糕比蛋糕! 就吃起司蛋糕',
+                icon: 'fas fa-cheese',
+                iconQuestion: 'fas fa-question-circle i-dark'
+            },
+            {
+                id: 34,
+                food: 'cookie',
+                sentence: '吃點小餅乾吧',
+                icon: 'fas fa-cookie',
+                iconQuestion: 'far fa-question-circle i-light'
+            },
+            {
+                id: 35,
+                food: 'apple',
+                sentence: '一天一天蘋果 快樂遠離我',
+                icon: 'fas fa-apple-alt',
+                iconQuestion: 'fas fa-question-circle i-dark'
+            },
+            {
+                id: 36,
+                food: 'pizza',
+                sentence: '今天中午就吃必勝客 ㄅ',
+                icon: 'fas fa-pizza-slice',
+                iconQuestion: 'far fa-question-circle i-light'
+            },
+            {
+                id: 37,
+                food: 'pizza',
+                sentence: '達美樂 打了沒! 2882-5252',
+                icon: 'fas fa-pizza-slice',
+                iconQuestion: 'fas fa-question-circle i-dark'
+            },
+            {
+                id: 38,
+                food: 'pizza',
+                sentence: '蘇阿姨比薩屋 ! 阿姨的比薩敲好吃',
+                icon: 'fas fa-pizza-slice',
+                iconQuestion: 'far fa-question-circle i-light'
+            },
+            {
+                id: 39,
+                food: 'hamburger',
+                sentence: '今天來點 麥當勞的勁辣雞腿堡!',
+                icon: 'fas fa-hamburger',
+                iconQuestion: 'fas fa-question-circle i-dark'
+            },
+            {
+                id: 40,
+                food: 'hamburger',
+                sentence: 'Subway! Subway! 我們要吃Subway!',
+                icon: 'fas fa-hamburger',
+                iconQuestion: 'fas fa-question-circle i-dark'
+            },
+            {
+                id: 41,
+                food: 'carrot',
+                sentence: '是不是大魚大肉吃了很多天! 來點健康餐盒怎ㄇyoung',
+                icon: 'fas fa-carrot',
+                iconQuestion: 'far fa-question-circle i-light'
+            },
+            {
+                id: 42,
+                food: 'carrot',
+                sentence: '不是初一十五也是可以吃個素食',
+                icon: 'fas fa-seedling',
+                iconQuestion: 'fas fa-question-circle i-dark'
+            },
+            {
+                id: 43,
+                food: 'walk',
+                sentence: '走去附近最近的牛肉麵店吃飯吧',
+                icon: 'fas fa-shoe-prints',
+                iconQuestion: 'far fa-question-circle i-light'
+            },
+            {
+                id: 44,
+                food: 'coffee',
+                sentence: '先喝杯咖啡吧 是不是還沒到吃飯的時間!',
+                icon: 'fas fa-coffee',
+                iconQuestion: 'fas fa-question-circle i-dark'
+            },
+            {
+                id: 45,
+                food: 'cake',
+                sentence: '今天或許過得很苦,但我們今天可樂 買個蛋糕吧!',
+                icon: 'fas fa-birthday-cake',
+                iconQuestion: 'far fa-question-circle i-light'
+            },
+            {
+                id: 46,
+                food: 'walk',
+                sentence: '今天中午就吃拉麵ㄅ! ',
+                icon: 'fas fa-shoe-prints',
+                iconQuestion: 'far fa-question-circle i-light'
+            },
+            {
+                id: 47,
+                food: 'pizza',
+                sentence: '有朋友的話可以一起吃pizza :D',
+                icon: 'fas fa-pizza-slice',
+                iconQuestion: 'fas fa-question-circle i-dark'
+            },
+            {
+                id: 48,
+                food: 'hamburger',
+                sentence: '今天午餐就吃  Mos Burger!怎麼樣',
+                icon: 'fas fa-hamburger',
+                iconQuestion: 'far fa-question-circle i-light'
+            },
+            {
+                id: 49,
+                food: 'ice-cream',
+                sentence: '今天天氣很熱的話 就吃冰淇淋～',
+                icon: 'fas fa-ice-cream',
+                iconQuestion: 'fas fa-question-circle i-dark'
+            },
+            {
+                id: 50,
+                food: 'walk',
+                sentence: '走去外面隨便看看有啥好吃的8',
+                icon: 'fas fa-shoe-prints',
+                iconQuestion: 'far fa-question-circle i-light'
+            },
+            {
+                id: 51,
+                food: 'chicken',
+                sentence: '雞腿Bang當 Bang利商店的很不錯ㄛ',
+                icon: 'fas fa-drumstick-bite',
+                iconQuestion: 'fas fa-question-circle i-dark'
+            },
+            {
+                id: 52,
+                food: 'fork',
+                sentence: '附近好吃的西餐店怎ㄇ樣',
+                icon: 'fas fa-utensils',
+                iconQuestion: 'fas fa-question-circle i-dark'
+            },
+            {
+                id: 53,
+                food: 'chicken',
+                sentence: '偷吃旁邊同學的雞腿bang當 !',
+                icon: 'fas fa-drumstick-bite',
+                iconQuestion: 'far fa-question-circle i-light'
+            },
+            {
+                id: 54,
+                food: 'chicken',
+                sentence: '吃同事吃過的雞腿 ',
+                icon: 'fas fa-drumstick-bite',
+                iconQuestion: 'fas fa-question-circle i-dark'
+            },
+            {
+                id: 55,
+                food: 'fish',
+                sentence: '吃魚吃魚 年年有魚 黃河蜀魚館',
+                icon: 'fas fa-fish',
+                iconQuestion: 'far fa-question-circle i-light'
+            },
+            {
+                id: 56,
+                food: 'cheese',
+                sentence: '人比人氣死人 蛋糕比蛋糕! 就吃起司蛋糕',
+                icon: 'fas fa-cheese',
+                iconQuestion: 'fas fa-question-circle i-dark'
+            },
+            {
+                id: 57,
+                food: 'cookie',
+                sentence: '吃點小餅乾吧',
+                icon: 'fas fa-cookie',
+                iconQuestion: 'far fa-question-circle i-light'
+            },
+            {
+                id: 58,
+                food: 'apple',
+                sentence: '一天一天蘋果 快樂遠離我',
+                icon: 'fas fa-apple-alt',
+                iconQuestion: 'far fa-question-circle i-light'
+            },
+            {
+                id: 59,
+                food: 'pizza',
+                sentence: '今天中午就吃必勝客 ㄅ',
+                icon: 'fas fa-pizza-slice',
+                iconQuestion: 'fas fa-question-circle i-dark'
+            },
+            {
+                id: 60,
+                food: 'pizza',
+                sentence: '達美樂 打了沒! 2882-5252',
+                icon: 'fas fa-pizza-slice',
+                iconQuestion: 'far fa-question-circle i-light'
+            },
+            {
+                id: 61,
+                food: 'pizza',
+                sentence: '蘇阿姨比薩屋 ! 阿姨的比薩敲好吃',
+                icon: 'fas fa-pizza-slice',
+                iconQuestion: 'fas fa-question-circle i-dark'
+            },
+            {
+                id: 62,
+                food: 'hamburger',
+                sentence: '今天來點 麥當勞的勁辣雞腿堡!',
+                icon: 'fas fa-hamburger',
+                iconQuestion: 'far fa-question-circle i-light'
+            },
+            {
+                id: 63,
+                food: 'hamburger',
+                sentence: 'Subway! Subway! 我們要吃Subway!',
+                icon: 'fas fa-hamburger',
+                iconQuestion: 'fas fa-question-circle i-dark'
+            },
+            {
+                id: 64,
+                food: 'carrot',
+                sentence: '是不是大魚大肉吃了很多天! 來點健康餐盒怎ㄇyoung',
+                icon: 'fas fa-carrot',
+                iconQuestion: 'far fa-question-circle i-light'
+            },
+            {
+                id: 65,
+                food: 'carrot',
+                sentence: '不是初一十五也是可以吃個素食',
+                icon: 'fas fa-seedling',
+                iconQuestion: 'fas fa-question-circle i-dark'
+            },
+            {
+                id: 66,
+                food: 'walk',
+                sentence: '走去附近最近的牛肉麵店吃飯吧',
+                icon: 'fas fa-shoe-prints',
+                iconQuestion: 'far fa-question-circle i-light'
+            },
+            {
+                id: 67,
+                food: 'coffee',
+                sentence: '先喝杯咖啡吧 是不是還沒到吃飯的時間!',
+                icon: 'fas fa-coffee',
+                iconQuestion: 'fas fa-question-circle i-dark'
+            },
+            {
+                id: 68,
+                food: 'cake',
+                sentence: '今天或許過得很苦,但我們今天可樂 買個蛋糕吧!',
+                icon: 'fas fa-birthday-cake',
+                iconQuestion: 'far fa-question-circle i-light'
+            },
+            {
+                id: 69,
+                food: 'walk',
+                sentence: '今天中午就吃拉麵ㄅ! ',
+                icon: 'fas fa-shoe-prints',
+                iconQuestion: 'fas fa-question-circle i-dark'
+            },
+            {
+                id: 70,
+                food: 'pizza',
+                sentence: '有朋友的話可以一起吃pizza :D',
+                icon: 'fas fa-pizza-slice',
+                iconQuestion: 'far fa-question-circle i-light'
+            },
+            {
+                id: 71,
+                food: 'hamburger',
+                sentence: '今天午餐就吃  Mos Burger!怎麼樣',
+                icon: 'fas fa-hamburger',
+                iconQuestion: 'fas fa-question-circle i-dark'
+            },
+            {
+                id: 72,
+                food: 'ice-cream',
+                sentence: '今天天氣很熱的話 就吃冰淇淋～',
+                icon: 'fas fa-ice-cream',
+                iconQuestion: 'far fa-question-circle i-light'
+            },
+            {
+                id: 73,
+                food: 'walk',
+                sentence: '走去外面隨便看看有啥好吃的8',
+                icon: 'fas fa-shoe-prints',
+                iconQuestion: 'fas fa-question-circle i-dark'
+            },
+            {
+                id: 74,
+                food: 'chicken',
+                sentence: '雞腿Bang當 Bang利商店的很不錯ㄛ',
+                icon: 'fas fa-drumstick-bite',
+                iconQuestion: 'far fa-question-circle i-light'
+            },
+            {
+                id: 75,
+                food: 'fork',
+                sentence: '附近好吃的西餐店怎ㄇ樣',
+                icon: 'fas fa-utensils',
+                iconQuestion: 'fas fa-question-circle i-dark'
+            },
+            {
+                id: 76,
+                food: 'chicken',
+                sentence: '偷吃旁邊同學的雞腿bang當 !',
+                icon: 'fas fa-drumstick-bite',
+                iconQuestion: 'far fa-question-circle i-light'
+            },
+            {
+                id: 77,
+                food: 'chicken',
+                sentence: '吃同事吃過的雞腿 ',
+                icon: 'fas fa-drumstick-bite',
+                iconQuestion: 'fas fa-question-circle i-dark'
+            },
+            {
+                id: 78,
+                food: 'fish',
+                sentence: '吃魚吃魚 年年有魚 黃河蜀魚館',
+                icon: 'fas fa-fish',
+                iconQuestion: 'far fa-question-circle i-light'
+            },
+            {
+                id: 79,
+                food: 'cheese',
+                sentence: '人比人氣死人 蛋糕比蛋糕! 就吃起司蛋糕',
+                icon: 'fas fa-cheese',
+                iconQuestion: 'fas fa-question-circle i-dark'
+            },
+            {
+                id: 80,
+                food: 'cookie',
+                sentence: '吃點小餅乾吧',
+                icon: 'fas fa-cookie',
+                iconQuestion: 'far fa-question-circle i-light'
+            },
+            {
+                id: 81,
+                food: 'apple',
+                sentence: '一天一天蘋果 快樂遠離我',
+                icon: 'fas fa-apple-alt',
+                iconQuestion: 'fas fa-question-circle i-dark'
+            },
+            {
+                id: 82,
+                food: 'pizza',
+                sentence: '今天中午就吃必勝客 ㄅ',
+                icon: 'fas fa-pizza-slice',
+                iconQuestion: 'far fa-question-circle i-light'
+            },
+            {
+                id: 83,
+                food: 'pizza',
+                sentence: '達美樂 打了沒! 2882-5252',
+                icon: 'fas fa-pizza-slice',
+                iconQuestion: 'fas fa-question-circle i-dark'
+            },
+            {
+                id: 84,
+                food: 'pizza',
+                sentence: '蘇阿姨比薩屋 ! 阿姨的比薩敲好吃',
+                icon: 'fas fa-pizza-slice',
+                iconQuestion: 'far fa-question-circle i-light'
+            },
+            {
+                id: 85,
+                food: 'hamburger',
+                sentence: '今天來點 麥當勞的勁辣雞腿堡!',
+                icon: 'fas fa-hamburger',
+                iconQuestion: 'fas fa-question-circle i-dark'
+            },
+            {
+                id: 86,
+                food: 'hamburger',
+                sentence: 'Subway! Subway! 我們要吃Subway!',
+                icon: 'fas fa-hamburger',
+                iconQuestion: 'far fa-question-circle i-light'
+            },
+            {
+                id: 87,
+                food: 'carrot',
+                sentence: '是不是大魚大肉吃了很多天! 來點健康餐盒怎ㄇyoung',
+                icon: 'fas fa-carrot',
+                iconQuestion: 'fas fa-question-circle i-dark'
+            },
+            {
+                id: 88,
+                food: 'carrot',
+                sentence: '不是初一十五也是可以吃個素食',
+                icon: 'fas fa-seedling',
+                iconQuestion: 'far fa-question-circle i-light'
+            },
+            {
+                id: 89,
+                food: 'walk',
+                sentence: '走去附近最近的牛肉麵店吃飯吧',
+                icon: 'fas fa-shoe-prints',
+                iconQuestion: 'fas fa-question-circle i-dark'
+            },
+            {
+                id: 90,
+                food: 'coffee',
+                sentence: '先喝杯咖啡吧 是不是還沒到吃飯的時間!',
+                icon: 'fas fa-coffee',
+                iconQuestion: 'far fa-question-circle i-light'
+            },
+        ]
+        let rows = Math.floor((foodData.length - 24) / 11) + 4
+        let index = 0 
+        let steps=0,allSteps=0,currentStepIndex=0,randomNumArr=[],randomNumArr2=[]
+        let speed=100
+        
+
+        //window.onload
+        window.onload = function () {
+            init()
+
+            const pDiv = document.querySelectorAll('.col-5')[1]
+            const p = document.createElement('p')
+            p.classList.add('fs-5','mt-3')
+            p.innerText = '今天吃什ㄇ'
+            pDiv.appendChild(p)
+            
+            const btnDiv = document.querySelectorAll('.col-5')[3]
+            const randomBtn = document.createElement('button')
+            randomBtn.classList.add('btn','btn-outline-dark','mb-2')
+            randomBtn.innerText = '選'
+            btnDiv.appendChild(randomBtn)
+
+            randomBtn.onclick = function(){
+                if(steps>0){
+                    alert('還沒結束唷,結束了再按一次可以重新')
+                    return
+                }
+                p.innerText=''
+                let random = Math.floor(Math.random()*foodData.length)+1
+                randomNumArr.length=0
+                steps = random
+                allSteps = steps + Math.floor(foodData.length/3)
+                randomNumArr = getRandomArr(allSteps)
+                randomNumArr2 = getRandomArr(allSteps)
+                console.log(allSteps)
+                
+                walk()
+
+            }
+        }
+
+        //頁面初始化
+        function init() {
+            for (let row = 1; row <= rows; row++) {
+                const rowDiv = document.createElement('div')
+            
+                if (row > 3 && row < 8) {
+                    for (cols = 1; cols <= 7; cols++) {
+                        let food = foodData[index]
+                        const col = document.createElement('div')
+
+                        if (cols == 4) {
+                            col.classList.add('col-5')
+                        } else {
+                            const i = document.createElement('i')
+                            const outerDiv = document.createElement('div')
+
+                            col.classList.add('col-1')
+                            
+                            i.setAttribute('icon-number', food.id)
+                            i.setAttribute('class', food.iconQuestion)
+                            outerDiv.appendChild(i)
+                            col.appendChild(outerDiv)
+                            index++
+                        }
+                        rowDiv.appendChild(col)
+                    }
+                }
+                else {
+                    for (cols = 1; cols <= 11; cols++) {
+                        let food = foodData[index]
+                        const col = document.createElement('div')
+                        const i = document.createElement('i')
+                        const outerDiv = document.createElement('div')
+                        i.setAttribute('icon-number', food.id)
+                        i.setAttribute('class', food.iconQuestion)
+                        col.classList.add('col-1')
+
+                        outerDiv.appendChild(i)
+                        col.appendChild(outerDiv)
+                        rowDiv.appendChild(col)
+                        index++
+                    }
+
+                }
+
+
+                rowDiv.classList.add('row', 'fs-1', 'text-center')
+                if (row % 2 == 0) rowDiv.classList.add('justify-content-center')
+                container.appendChild(rowDiv)
+            }
+            
+        }
+        
+        function walk(){
+            
+            const p = document.querySelector('p')            
+            let activeIcon = document.querySelector('.active')
+            let allFoodIconList = container.querySelectorAll('[icon-number]')
+            let allFoodIconArr = Array.from(new Set(allFoodIconList))
+                    
+            //#region 
+            //清除1.  每次重新開始的時候會刪除掉前一個的icon
+            let lastIcon = container.querySelector('.selected-icon')
+            if (lastIcon!=null){
+                lastIcon.classList.remove('selected-icon')
+                let value = parseInt(lastIcon.getAttributeNode('icon-number').value) 
+                let targetArr= foodData.find(x=>x.id==value).iconQuestion
+                lastIcon.setAttribute('class',targetArr)
+            }
+            //移除掉在移動時候前一個的active
+            if (activeIcon != undefined) activeIcon.classList.remove('active')
+            //#endregion
+
+            
+            currentStepIndex++
+            if (currentStepIndex >= randomNumArr.length) {
+                currentStepIndex = 0
+            }
+            allSteps--
+            
+            let currentStepElement = allFoodIconArr.find(x => x.getAttributeNode('icon-number').value == randomNumArr[currentStepIndex])
+            if (currentStepElement != undefined) {
+                currentStepElement.classList.add('active')
+            }
+            
+            
+            let currentRandoArr = foodData.find(x=>x.id==randomNumArr[currentStepIndex])
+            p.innerText = currentRandoArr.sentence  //讓中間的文字也是動態產生的
+
+            //判斷要不要繼續走
+            if (allSteps > 0) {
+                setTimeout(walk, 300)
+            }
+            else {
+                let msg = foodData[randomNumArr[currentStepIndex]].sentence
+                let iconClass = foodData[randomNumArr[currentStepIndex]].icon
+                currentStepElement.setAttribute('class', `${iconClass}`)
+                currentStepElement.classList.add('selected-icon')
+                container.querySelector('p').innerText = msg
+                steps = 0
+            }
+
+        }
+
+        function getRandomArr(max){
+            let arr = []
+            while (arr.length <= max) {
+                let randomNum = Math.floor(Math.random() * foodData.length) + 1
+                arr.push(randomNum)
+            }
+            return arr
+        }
+    </script>
+
+
+</body>
+
+
+</html>
