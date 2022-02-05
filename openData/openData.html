@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+        integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+    <link rel="stylesheet" href="openData.css">
+
+    <style>
+        .container-fluid>.row {
+            height: 80vh;
+        }
+
+        #map,
+        #chart {
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row py-3">
+            <div class="col-4">
+                <div id="map"></div>
+            </div>
+            <div class="col-8 d-flex flex-column">
+                <div class="select-area">
+                    <label for="shelter">全國收容所</label>
+                    <select class="chart-control" id="shelter"></select>
+                </div>
+                <canvas id="chart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Axios -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.25.0/axios.min.js'></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js"
+        integrity="sha512-G8JE1Xbr0egZE5gNGyUm1fF764iHVfRXshIoUWCTPAbKkkItp/6qal5YAHXrxEu4HNfPTQs6HOu3D5vCGS1j3w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+    <script>
+
+        //DOM
+        let shelterChart = document.getElementById('chart')
+        const shelterSelect = document.getElementById('shelter')
+
+        //宣告
+        let map
+        //#region JSON資料們
+        // 經緯度JSON
+        let areaDataRequest = axios.get('https://raw.githubusercontent.com/ChouJustice/ChouJustice.github.io/main/Map/%E5%8F%B0%E7%81%A3%E8%A1%8C%E6%94%BF%E5%9C%B0%E5%8D%80.json')
+
+        //認養資料 JSON
+        let adoptDataRequest = axios.get('https://data.coa.gov.tw/Service/OpenData/TransService.aspx?UnitId=QcbUEzN6E6DL')
+
+        let adressDataRequest = axios.get('https://gist.githubusercontent.com/abc873693/2804e64324eaaf26515281710e1792df/raw/a1e1fc17d04b47c564bbd9dba0d59a6a325ec7c1/taiwan_districts.json')
+
+
+        let areaData
+        let adoptData
+        let addressData  //所有縣市和區域混搭的資料
+        let areaAdoptData
+        let allData
+        let markers = L.markerClusterGroup() //地圖marker叢集群組
+        let countryArr = []
+        let shelterName = []
+        let dogsCount = [], catsCount = []
+
+
+
+        //window.onload
+        window.onload = function () {
+            setMap()
+            Promise.all([areaDataRequest, adoptDataRequest, adressDataRequest])
+                .then(response => {
+
+                    let [areaRes, adoptRes, adressRes] = response
+
+
+                    areaData = areaRes.data
+                    adoptData = adoptRes.data
+                    addressData = adressRes.data.map(x => {
+                        let districtArr = x.districts
+                        let newArr = []
+
+                        districtArr.forEach(districtData => {
+                            newArr.push({
+                                City: x.name,
+                                Country: districtData.name
+                            })
+                            // console.log(districtData.name)
+                        })
+                        return newArr
+                        // console.log(districtArr)
+                    }).reduce(function (previousValue, currentValue) {
+                        return previousValue.concat(currentValue)
+                    })
+
+                    //console.log(addressData)
+                    allData = adoptData.map(adopt => {
+
+                        let targetArr = addressData.find(x => adopt.shelter_address.includes(x.City) && adopt.shelter_address.includes(x.Country))
+                        //arr 是不是undefined ->在最外面判斷是不是undefined
+                        //debugger
+                        let targetLonAndLatArr = areaData.find(x => adopt.shelter_address.includes(x.City) && adopt.shelter_address.includes(x.District))
+                        // console.log(targetLonAndLatArr)
+
+                        return {
+                            animalId: adopt.animal_id,
+                            animalType: adopt.animal_kind,
+                            animalPlace: adopt.animal_place,
+                            animalStatus: adopt.animal_status,
+                            shelterAddress: adopt.shelter_address,
+                            shelterTel: adopt.shelter_tel,
+                            animalSex: adopt.animal_sex,
+                            photo: adopt.album_file,
+                            city: targetArr != undefined ? targetArr.City : undefined,
+                            country: targetArr != undefined ? targetArr.Country : undefined,
+                            cityCountry: targetArr != undefined ? targetArr.City + targetArr.Country : undefined,
+                            lat: targetLonAndLatArr != undefined ? targetLonAndLatArr.Lat : undefined,
+                            lng: targetLonAndLatArr != undefined ? targetLonAndLatArr.Lng : undefined,
+
+
+                        }
+
+                    }).filter(data => data.country != undefined).groupBy('cityCountry')
+                    console.log(allData)  //現在是物件ㄌ
+
+                    setMarker()
+                    drawInitialChart()
+
+                    let options = ['請選擇'].concat(shelterName)
+                    //設定下拉選單的內容 ->直接寫請選擇會壞壞壞壞壞壞掉。 ^_^
+                    options.forEach(x => {
+                        const option = document.createElement('option')
+                        option.innerText = x
+                        option.value = x == '請選擇' ? '' : x
+                        shelterSelect.appendChild(option)
+                    })
+
+                    shelterSelect.onchange = function () {
+                        const keys = Object.keys(allData)
+                        if (shelterSelect.value != '') {
+                            let targetArr = keys.map(key => {
+                                let data = allData[key]
+                                return data.find(x => x.animalPlace == shelterSelect.value)
+                            }).find(x => x != undefined)
+                            map.setView([targetArr.lat, targetArr.lng], 15)
+                            //console.log(targetArr)
+                        }
+                    }
+                })
+        }
+
+
+        function setMarker() {
+            if (markers) markers.clearLayers()
+
+            //定義自己喜歡的圖表樣式
+            let myIcon = L.icon({
+                iconUrl: 'https://img.icons8.com/ios-glyphs/64/000000/cat--v2.png',
+                iconSize: [42, 42],
+            })
+
+
+            Object.keys(allData).forEach(x => {
+                //allData本身是物件,所以取得他的key(陣列)去forEach,再利用物件可以取到值的特性去取每一筆值,取出來的data是*陣列*
+                let data = allData[x]
+
+                //因為每一個的地點有可能會重複,每個資料都有經緯度所以取隨便一筆都可以(標示在地圖上面的)
+                let marker = L.marker(
+                    [data[0].lat, data[0].lng], {
+                    icon: myIcon,
+                    title: 'https://img.icons8.com/ios-glyphs/64/000000/cat--v2.png',
+                }
+
+                )
+
+                //每一區域的所有貓貓和狗狗
+                let catAndDogsCounts = data.length
+                let openStatusCounts = data.filter(x => x.animalStatus == 'OPEN').length
+
+                // 點擊的彈跳窗
+                marker.bindPopup(
+                    `
+                        <h4>${data[0].animalPlace}</h4>
+                        <div class='d-flex pop-up-text justify-content-around'> 
+                            <p>貓狗總數: ${catAndDogsCounts}</p>
+                            <p>開放認養總數: ${openStatusCounts}</p>                       
+                        </div>
+                    `
+                )
+
+                //滑動過去會出現收容所名稱
+                marker.bindTooltip(data[0].animalPlace, {
+                    direction: 'top',
+                    sticky: true,
+                    permanent: false,
+                    opacity: 1.0,
+                    className: 'tooltip'
+                }).openTooltip()
+
+                // marker.addEventListener('click', function () {
+                //     shelterChart.remove()
+                //     drawPie()
+
+                // })
+
+                console.log(data)
+                markers.addLayer(marker)  //把marker新增到地圖上面
+            })
+
+
+            map.addLayer(markers)
+
+        }
+        function setMap() {
+
+
+            map = L.map('map', {
+                center: [25.078527339378535, 121.41594950337078], //初始時地圖顯示的時候在哪個經緯度
+                zoom: 12 //地圖初始時縮放程度
+            })
+            //設定圖資
+            let osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+            let osm = new L.TileLayer(osmUrl, { minZoom: 8, maxZoom: 22 }) //最大和最小縮放程度
+            map.addLayer(osm)
+        }
+        function drawInitialChart() {
+
+            //整理資料
+            const keys = Object.keys(allData)
+            keys.forEach((key, index) => {
+                let data = allData[key]
+                shelterName.push(data[0].animalPlace)
+                dogsCount.push(data.filter(x => x.animalType == '狗').length)
+                catsCount.push(data.filter(x => x.animalType == '貓').length)
+            })
+
+            // 圖表的基本設定
+            const options = {
+                scales: {
+                    //左右都要顯示數值
+                    yAxes: [{
+                        display: true,
+                        position: 'right',
+                        ticks: {
+                            beginAtZero: false
+                        }
+                    }]
+                }
+            }
+
+            keys.forEach((key, index) => {
+                let data = allData[key]
+                let catCounts = data.filter(x => x.animalType == '貓').length
+                let dogCounts = data.filter(x => x.animalType == '狗').length
+
+                let scatter = new Chart(shelterChart, {
+                    type: 'line',
+                    data: {
+                        labels: shelterName, //x軸名稱
+                        datasets: [{
+                            label: "狗狗",	// Y軸的名稱
+                            data: dogsCount,		// Y軸的值
+                            borderColor: "#1f77b4",
+                            lineTension: .5,  //圓滑程度
+                        },
+                        {
+                            label: "貓貓",
+                            data: catsCount,
+                            borderColor: "#ff7f0e",
+                            lineTension: .5,
+                        }]
+
+
+                    },
+                    option: options
+                })
+
+
+            })
+        }
+       //function drawPie() {
+            // const keys = Object.keys(allData)
+            // shelterChart = document.getElementById('chart')
+            // let pieChart = new Chart(shelterChart, {
+            //     type: 'pie',
+            //     data: {
+            //         data: {
+            //             labels: [1, 2, 3, 4],  //["台積電","三星","..."]
+            //             datasets: [{
+            //                 data: [22, 33, 55, 88], //[53.1,17.3,....]
+            //                 backgroundColor: [
+            //                     'rgb(255, 99, 132)',
+            //                     'rgb(255,75,50)',
+            //                     'rgb(255, 205, 86)',
+            //                     'rgb(75, 192, 192)'
+            //                 ]
+            //             }],
+            //         },
+            //         options: {
+            //             responsive: true,
+            //             title: {
+            //                 display: true,
+            //                 fontSize: 26,
+            //                 text: '2021年全球晶圓代工市佔率%'
+            //             },
+            //             tooltips: {
+            //                 mode: 'point',
+            //                 intersect: true,
+            //             },
+            //             legend: {
+            //                 position: 'bottom',
+            //                 labels: {
+            //                     fontColor: 'black',
+            //                 }
+            //             }
+            //         }
+
+
+            //     },
+            // })
+
+        // }
+
+
+        Array.prototype.groupBy = function (prop) {
+            return this.reduce(function (groups, item) {
+                const val = item[prop]
+                groups[val] = groups[val] || []
+                groups[val].push(item)
+                return groups
+
+            }, {})
+        }
+    </script>
+</body>
+
+</html>

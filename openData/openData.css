@@ -1,0 +1,30 @@
+.tooltip {
+  background-color: rgba(42, 44, 65, 0.8);
+  font-weight: bold;
+  border: #2b2d42;
+  color: #8d99ae;
+}
+
+.leaflet-tooltip-top:before,
+.leaflet-tooltip-bottom:before,
+.leaflet-tooltip-left:before,
+.leaflet-tooltip-right:before {
+  border: none !important;
+}
+
+.leaflet-popup-content-wrapper {
+  background-color: #2a2c41;
+  font-weight: 700;
+  color: #8d99ae;
+}
+
+.leaflet-popup-content-wrapper .leaflet-popup-content {
+  background-color: #2a2c41;
+  font-weight: 700;
+  color: #8d99ae;
+}
+
+.leaflet-popup-tip-container {
+  display: none;
+}
+/*# sourceMappingURL=openData.css.map */
