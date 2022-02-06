@@ -25,6 +25,10 @@
         .container-fluid>.row {
             height: 100vh;
         }
+        html,body{
+            height: 100%;
+            background: linear-gradient(0.25turn, #ccd5ae, #e9edc9);
+        }
 
         #map {
             height: 100%;
@@ -53,10 +57,13 @@
             color: #14213d;
             font-weight: bold;
         }
+        img{
+            vertical-align: top;
+        }
 
         @media screen and (max-width:767px) {
             #map {
-                height: 75vh;
+                height: 70vh;
             }
 
             .card {
@@ -359,7 +366,7 @@
 
                         data.animalFoundPlace != undefined ? h5.innerText = `${data.animalFoundPlace}+${data.animalColor}` : h5.innerText = `${data.animalColor}`
                         a.href = '#'
-                        a.classList.add('btn','bg-btn-primary')
+                        a.classList.add('btn', 'bg-btn-primary')
                         a.innerText = '看更多資訊'
 
                         if (data.animalStatus == "OPEN") {
