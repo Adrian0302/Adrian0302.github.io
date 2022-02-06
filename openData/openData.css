@@ -36,4 +36,22 @@
 .container-fluid {
   height: 100vh;
 }
+
+table {
+  border: solid 1px #000000;
+  color: #e5e5e5;
+}
+
+table thead {
+  background-color: #14213d;
+}
+
+table tbody {
+  background-color: #e5e5e5;
+  color: #14213d;
+}
+
+table tbody td {
+  border: solid 1px #000000;
+}
 /*# sourceMappingURL=openData.css.map */

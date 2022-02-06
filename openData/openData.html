@@ -22,28 +22,61 @@
     <link rel="stylesheet" href="openData.css">
 
     <style>
+        .container-fluid>.row {
+            height: 100vh;
+        }
 
-            .container-fluid>.row {
-                height: 100vh;
+        #map {
+            height: 100%;
+        }
+
+        .card {
+            width: 25%;
+        }
+
+        #chart {
+            height: auto;
+        }
+
+        .btn:focus,
+        .btn:active:focus,
+        .btn.active:focus,
+        .btn.focus,
+        .btn:active.focus,
+        .btn.active.focus {
+            outline: none;
+            box-shadow: none;
+        }
+
+        .bg-btn-primary {
+            background-color: #fca311;
+            color: #14213d;
+            font-weight: bold;
+        }
+
+        @media screen and (max-width:767px) {
+            #map {
+                height: 75vh;
             }
 
-            #map{
-                height: 100%;
-            }
-            #chart{
-                height: auto;
+            .card {
+                width: 100%;
             }
 
+            .flex-sm-wrap {
+                flex-wrap: wrap;
+            }
+        }
     </style>
 </head>
 
 <body>
     <div class="container-fluid">
         <div class="row py-3">
-            <div class="col-4">
+            <div class="col-md-5 col-sm-6">
                 <div id="map"></div>
             </div>
-            <div class="col-8 d-flex flex-column">
+            <div class="col-md-7 d-flex flex-column col-sm-6">
                 <div class="select-area">
                     <label for="shelter">全國收容所</label>
                     <select class="chart-control" id="shelter"></select>
@@ -281,12 +314,7 @@
                     //DOM元素樣式調整
                     h2.classList.add('text-center')
                     table.width = '100%'
-                    table.classList.add('text-center')
-
-
-
-
-
+                    table.classList.add('text-center', 'mb-5', 'px-2')
                     dataArea.append(h2, table)
 
 
@@ -318,8 +346,7 @@
                         let a = document.createElement('a')
 
 
-                        cardWrapDiv.setAttribute('style', 'width: 18rem')
-                        cardWrapDiv.classList.add('card', 'mx-3')
+                        cardWrapDiv.classList.add('card', 'my-4')
 
                         photo.classList.add('photo')
                         img.classList.add('img-fluid', 'card-img-top')
@@ -331,8 +358,8 @@
                         adoptP.classList.add('pt-2')
 
                         data.animalFoundPlace != undefined ? h5.innerText = `${data.animalFoundPlace}+${data.animalColor}` : h5.innerText = `${data.animalColor}`
-                        a.href= '#'
-                        a.classList.add('btn','btn-primary')
+                        a.href = '#'
+                        a.classList.add('btn','bg-btn-primary')
                         a.innerText = '看更多資訊'
 
                         if (data.animalStatus == "OPEN") {
@@ -369,13 +396,13 @@
                         photo.append(img)
                         adoptP.appendChild(i)
                         sexP.appendChild(sexI)
-                        cardBodyDiv.append(h5, adoptP, bodyTypeP,sexP,a)
+                        cardBodyDiv.append(h5, adoptP, bodyTypeP, sexP, a)
                         cardWrapDiv.append(photo, cardBodyDiv)
 
                         cardsDiv.appendChild(cardWrapDiv)
 
                     })
-                    cardsDiv.classList.add('d-flex', 'h-auto')
+                    cardsDiv.classList.add('d-flex', 'h-auto', 'flex-sm-wrap')
                     dataArea.appendChild(cardsDiv)
 
 
