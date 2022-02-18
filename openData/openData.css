@@ -62,4 +62,9 @@ table tbody {
 table tbody td {
   border: solid 1px #000000;
 }
+
+#box {
+  overflow-y: scroll;
+  height: 100vh;
+}
 /*# sourceMappingURL=openData.css.map */

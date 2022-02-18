@@ -190,10 +190,10 @@
 
                     }).filter(data => data.country != undefined).groupBy('cityCountry')
                     // console.log(allData)  //現在是物件ㄌ
-
+                    dataArea.innerHTML=""
                     setMarker()
                     
-                    dataArea.innerHTML=""
+                    
                     function zodiacSort(a, b) {
                         const cityArr = ["基隆市", "臺北市", "新北市", "桃園市", "新竹市", "新竹縣", "苗栗縣", "臺中市", "彰化縣", "南投縣", "雲林縣", "嘉義市", "嘉義縣", "臺南市", "高雄市", "屏東縣", "臺東縣", "花蓮縣", "宜蘭縣", "澎湖縣", "金門縣", "連江縣"]
                         return cityArr.indexOf(a.substring(0, 3)) - cityArr.indexOf(b.substring(0, 3))
@@ -210,6 +210,7 @@
                     })
 
                     shelterSelect.onchange = function () {
+                        dataArea.innerHTML=""
                         const keys = Object.keys(allData)
                         if (shelterSelect.value != '') {
                             let targetArr = keys.map(key => {
@@ -255,9 +256,9 @@
                 marker.bindPopup(
                     `
                         <h4>${data[0].animalPlace}</h4>
-                        <div class='d-flex pop-up-text justify-content-around'> 
-                            <p>貓狗總數: ${catAndDogsCounts}</p>
-                            <p>開放認養總數: ${openStatusCounts}</p>                       
+                        <div class='pop-up-text justify-content-around'> 
+                            <p>收容所位置: ${data[0].shelterAddress}</p>
+                            <p>電話: ${data[0].shelterTel}</p>                       
                         </div>
                     `
                 )
@@ -272,9 +273,9 @@
                 }).openTooltip()
 
                 marker.addEventListener('click', function () {
-
                     dataArea.innerHTML = ''
                     //DOM物件生成
+                    const box = document.createElement('div')
                     const table = document.createElement('table')
                     const thead = document.createElement('thead')
                     const theadTr = document.createElement('tr')
@@ -325,7 +326,7 @@
                     dataArea.append(h2, table)
 
                     let rdnData = getRandomArr()
-
+                    box.setAttribute('id','box')
                     function getRandomArr() {
                         let arr = []
                         let rdnNum = Math.floor(Math.random() * data.length)
@@ -340,7 +341,7 @@
 
                     console.log(data)
                     rdnData.forEach((x, index) => {
-                        dataArea.innerHTML += `<div class="row my-2 bg-secondary bg-opacity-10">
+                        box.innerHTML += `<div class="row my-2 bg-secondary bg-opacity-10">
                         <div class="col-4 cards">
                             <img src="${x.photo}" alt="" class="img-fluid">
                         </div>
@@ -353,7 +354,7 @@
                         </div>
                     </div>`
                     })
-
+                    dataArea.append(box)
 
                 })
 
