@@ -25,7 +25,9 @@
         .container-fluid>.row {
             height: 100vh;
         }
-        html,body{
+
+        html,
+        body {
             height: 100%;
             background: linear-gradient(0.25turn, #ccd5ae, #e9edc9);
         }
@@ -36,10 +38,6 @@
 
         .card {
             width: 25%;
-        }
-
-        #chart {
-            height: auto;
         }
 
         .btn:focus,
@@ -57,22 +55,9 @@
             color: #14213d;
             font-weight: bold;
         }
-        img{
+
+        img {
             vertical-align: top;
-        }
-
-        @media screen and (max-width:767px) {
-            #map {
-                height: 70vh;
-            }
-
-            .card {
-                width: 100%;
-            }
-
-            .flex-sm-wrap {
-                flex-wrap: wrap;
-            }
         }
     </style>
 </head>
@@ -88,8 +73,14 @@
                     <label for="shelter">全國收容所</label>
                     <select class="chart-control" id="shelter"></select>
                 </div>
-                <canvas id="chart"></canvas>
-                <div id="dataArea"></div>
+                <div id="dataArea">
+                    <div class="loadingCircle text-center mt-5">
+                        <div class="spinner-border text-secondary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p class="text-secondary">loading...</p>                       
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -108,7 +99,7 @@
     <script>
 
         //DOM
-        let shelterChart = document.getElementById('chart')
+
         const shelterSelect = document.getElementById('shelter')
         const dataArea = document.getElementById('dataArea')
 
@@ -132,8 +123,7 @@
         let markers = L.markerClusterGroup() //地圖marker叢集群組
         let countryArr = []
         let shelterName = []
-        let dogsCount = [], catsCount = []
-
+        let positionGroupByData = []
 
 
         //window.onload
@@ -163,7 +153,11 @@
                     }).reduce(function (previousValue, currentValue) {
                         return previousValue.concat(currentValue)
                     })
-
+                    adoptData.map(adopt => {
+                        if (shelterName.indexOf(adopt.animal_place) == -1) {
+                            shelterName.push(adopt.animal_place)
+                        }
+                    })
                     //console.log(addressData)
                     allData = adoptData.map(adopt => {
 
@@ -198,7 +192,13 @@
                     // console.log(allData)  //現在是物件ㄌ
 
                     setMarker()
-                    drawInitialChart()
+                    
+                    dataArea.innerHTML=""
+                    function zodiacSort(a, b) {
+                        const cityArr = ["基隆市", "臺北市", "新北市", "桃園市", "新竹市", "新竹縣", "苗栗縣", "臺中市", "彰化縣", "南投縣", "雲林縣", "嘉義市", "嘉義縣", "臺南市", "高雄市", "屏東縣", "臺東縣", "花蓮縣", "宜蘭縣", "澎湖縣", "金門縣", "連江縣"]
+                        return cityArr.indexOf(a.substring(0, 3)) - cityArr.indexOf(b.substring(0, 3))
+                    }
+                    shelterName.sort(zodiacSort)
 
                     let options = ['請選擇'].concat(shelterName)
                     //設定下拉選單的內容 ->直接寫請選擇會壞壞壞壞壞壞掉。 ^_^
@@ -272,7 +272,7 @@
                 }).openTooltip()
 
                 marker.addEventListener('click', function () {
-                    shelterChart.remove()
+
                     dataArea.innerHTML = ''
                     //DOM物件生成
                     const table = document.createElement('table')
@@ -324,8 +324,6 @@
                     table.classList.add('text-center', 'mb-5', 'px-2')
                     dataArea.append(h2, table)
 
-
-                    //table下方卡片生成 ->從data裡面隨便撈三張 
                     let rdnData = getRandomArr()
 
                     function getRandomArr() {
@@ -338,79 +336,23 @@
                         return arr
 
                     }
-                    //rdnData
-                    rdnData.forEach((data, index) => {
-                        let cardWrapDiv = document.createElement('div')
-                        let img = document.createElement('img')
-                        let cardBodyDiv = document.createElement('div')
-                        let h5 = document.createElement('h5')
-                        let photo = document.createElement('div')
-                        let i = document.createElement('i')
-                        let adoptP = document.createElement('p')
-                        let bodyTypeP = document.createElement('p')
-                        let sexP = document.createElement('p')
-                        let sexI = document.createElement('i')
-                        let a = document.createElement('a')
 
 
-                        cardWrapDiv.classList.add('card', 'my-4')
-
-                        photo.classList.add('photo')
-                        img.classList.add('img-fluid', 'card-img-top')
-                        img.setAttribute('alt', 'Card image cap')
-                        img.src = `${data.photo}`
-
-                        cardBodyDiv.setAttribute('class', 'card-body')
-                        h5.setAttribute('class', 'card-title')
-                        adoptP.classList.add('pt-2')
-
-                        data.animalFoundPlace != undefined ? h5.innerText = `${data.animalFoundPlace}+${data.animalColor}` : h5.innerText = `${data.animalColor}`
-                        a.href = '#'
-                        a.classList.add('btn', 'bg-btn-primary')
-                        a.innerText = '看更多資訊'
-
-                        if (data.animalStatus == "OPEN") {
-                            i.classList.add('fas', 'fa-check')
-                            adoptP.innerText = '可否認養: 可以'
-                        } else {
-                            i.classList.add('fas', 'fa-times')
-                            adoptP.innerText = '可否認養: 不可以'
-                        }
-
-                        if (data.animalBodyType == 'SMALL') {
-                            bodyTypeP.innerText = '大小: 小型'
-                        }
-                        else if (data.animalBodyType == 'MEDIUM') {
-                            bodyTypeP.innerText = '大小: 中型'
-                        }
-                        else if (data.animalBodyType == 'LARGE') {
-                            bodyTypeP.innerText = '大小: 大型'
-                        }
-                        else {
-                            bodyTypeP.innerText = '大小: 無'
-                        }
-
-                        sexP.innerText = '性別:'
-                        if (data.animalSex == 'M') {
-                            sexI.classList.add('fas', 'fa-mars')
-                        } else {
-                            sexI.classList.add('fas', 'fa-venus')
-                        }
-
-
-                        console.log(data)
-
-                        photo.append(img)
-                        adoptP.appendChild(i)
-                        sexP.appendChild(sexI)
-                        cardBodyDiv.append(h5, adoptP, bodyTypeP, sexP, a)
-                        cardWrapDiv.append(photo, cardBodyDiv)
-
-                        cardsDiv.appendChild(cardWrapDiv)
-
+                    console.log(data)
+                    rdnData.forEach((x, index) => {
+                        dataArea.innerHTML += `<div class="row my-2 bg-secondary bg-opacity-10">
+                        <div class="col-4 cards">
+                            <img src="${x.photo}" alt="" class="img-fluid">
+                        </div>
+                        <div class="col-8 d-flex flex-column justify-content-between">
+                            <h4>我在${x.animalPlace}</h4>
+                            <p>性別：${x.animalSex == "F" ? "女" : "男"}</p>
+                            <p>可否認養：${x.animalStatus == "OPEN" ? "可以" : "不可以"}</p>
+                            <p>地址：${x.shelterAddress}</p>
+                            <p>犬種大小：${x.animalBodyType}</p>
+                        </div>
+                    </div>`
                     })
-                    cardsDiv.classList.add('d-flex', 'h-auto', 'flex-sm-wrap')
-                    dataArea.appendChild(cardsDiv)
 
 
                 })
@@ -434,79 +376,6 @@
             let osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
             let osm = new L.TileLayer(osmUrl, { minZoom: 8, maxZoom: 22 }) //最大和最小縮放程度
             map.addLayer(osm)
-        }
-        function drawInitialChart() {
-
-            //整理資料
-            const keys = Object.keys(allData)
-            keys.forEach((key, index) => {
-                let data = allData[key]
-                shelterName.push(data[0].animalPlace)
-                dogsCount.push(data.filter(x => x.animalType == '狗').length)
-                catsCount.push(data.filter(x => x.animalType == '貓').length)
-            })
-
-            keys.forEach((key, index) => {
-                let data = allData[key]
-                let catCounts = data.filter(x => x.animalType == '貓').length
-                let dogCounts = data.filter(x => x.animalType == '狗').length
-
-                let scatter = new Chart(shelterChart, {
-                    type: 'line',
-                    data: {
-                        labels: shelterName, //x軸名稱
-                        datasets: [{
-                            label: "狗狗",	// 線條的名稱
-                            data: dogsCount,		// Y軸的值
-                            fill: true,
-                            borderColor: "#1f77b4",
-                            lineTension: .5 //圓滑程度
-
-                        },
-                        {
-                            label: "貓貓",
-                            data: catsCount,
-                            borderColor: "#ff7f0e",
-                            lineTension: .5,
-                            fill: true
-                        }]
-
-
-                    },
-                    options: {
-                        scales: {
-                            //左右都要顯示數值
-                            yAxes: [{
-                                display: true,
-                                position: 'left',
-                                ticks: {
-                                    beginAtZero: false
-                                }
-                            }],
-                        },
-                        responsive: true,
-                        title: {
-                            display: true,
-                            fontSize: 26,
-                            text: '各收容所貓狗總數'
-                        },
-                        tooltips: {
-                            mode: 'point',
-                            intersect: true,
-                        },
-                        // 圖例設置
-                        legend: {
-                            // 顯示位置
-                            position: 'bottom',
-                            labels: {
-                                fontColor: 'black',
-                            }
-                        }
-                    }
-                })
-
-
-            })
         }
 
         Array.prototype.groupBy = function (prop) {

@@ -28,9 +28,17 @@
   display: none;
 }
 
-.photo {
+.cards {
   overflow: hidden;
-  height: 60%;
+}
+
+.cards img {
+  background: lightgray;
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  vertical-align: top;
+  height: 200px;
 }
 
 .container-fluid {

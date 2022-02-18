@@ -1,13 +1,13 @@
 .tooltip {
-    background-color: rgba(42, 44, 65,0.8);
+    background-color: rgba(42, 44, 65, 0.8);
     font-weight: bold;
-    border: #2b2d42 ;
+    border: #2b2d42;
     color: #8d99ae;
 }
 
-.leaflet-tooltip-top:before, 
-.leaflet-tooltip-bottom:before, 
-.leaflet-tooltip-left:before, 
+.leaflet-tooltip-top:before,
+.leaflet-tooltip-bottom:before,
+.leaflet-tooltip-left:before,
 .leaflet-tooltip-right:before {
     border: none !important;
 }
@@ -26,24 +26,30 @@
 .leaflet-popup-tip-container {
     display: none;
 }
-.photo{
+.cards {
     overflow: hidden;
-    height: 60%;
 }
-.container-fluid{
+.cards img {
+    background: lightgray;
+    width: 100%;
+    object-fit: cover;
+    vertical-align: top;
+    height: 200px;
+}
+.container-fluid {
     height: 100vh;
 }
-table{
+table {
     border: solid 1px #000000;
     color: #e5e5e5;
 }
-table thead{
+table thead {
     background-color: #14213d;
 }
-table tbody{
+table tbody {
     background-color: #e5e5e5;
     color: #14213d;
-    td{
+    td {
         border: solid 1px #000000;
     }
 }
